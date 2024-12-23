@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Selection Page</title>
+    <link rel="stylesheet" href="seatstyle.css">
+</head>
+<body>
+    <div class="banner">
+        <div class="navbar">
+            <a href="https://www.just.edu.jo/Pages/Default.aspx">
+                <img src="logo.png" alt="Logo" class="logo">
+            </a>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Account</a></li>
+                <li><a href="#">Stations</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <h1>SELECT YOUR SEAT</h1>
+            <p>Choose one of the following open seats. Reserved seats will be grayed out.</p>
+            <div class="bus-container">
+                <div class="bus-layout">
+                    <div class="top-seats">
+                        <div class="seat-column">
+                            <button class="seat" data-seat-number="A1">A1</button>
+                            <button class="seat" data-seat-number="A2">A2</button>
+                            <button class="seat" data-seat-number="A3">A3</button>
+                            <button class="seat" data-seat-number="A4">A4</button>
+                            <button class="seat" data-seat-number="B1">B1</button>
+                            <button class="seat" data-seat-number="B2">B2</button>
+                            <button class="seat" data-seat-number="B3">B3</button>
+                            <button class="seat" data-seat-number="B4">B4</button>
+                            <button class="seat" data-seat-number="C1">C1</button>
+                            <button class="seat" data-seat-number="C2">C2</button>
+                            <button class="seat" data-seat-number="C3">C3</button>
+                            <button class="seat" data-seat-number="C4">C4</button>
+                            <button class="seat" data-seat-number="D1">D1</button>
+                            <button class="seat" data-seat-number="D2">D2</button>
+                            <button class="seat" data-seat-number="D3">D3</button>
+                            <button class="seat" data-seat-number="D4">D4</button>
+
+                        </div>
+                    </div>
+                    <div class="bottom-seats">
+                        <div class="seat-column">
+                            <button class="seat" data-seat-number="A5">A5</button>
+                            <button class="seat" data-seat-number="A6">A6</button>
+                            <button class="seat" data-seat-number="A7">A7</button>
+                            <button class="seat" data-seat-number="A8">A8</button>
+                            <button class="seat" data-seat-number="B5">B5</button>
+                            <button class="seat" data-seat-number="B6">B6</button>
+                            <button class="seat" data-seat-number="B7">B7</button>
+                            <button class="seat" data-seat-number="B8">B8</button>
+                            <button class="seat" data-seat-number="C5">C5</button>
+                            <button class="seat" data-seat-number="C6">C6</button>
+                            <button class="seat" data-seat-number="C7">C7</button>
+                            <button class="seat" data-seat-number="C8">C8</button>
+                            <button class="seat" data-seat-number="D5">D5</button>
+                            <button class="seat" data-seat-number="D6">D6</button>
+                            <button class="seat" data-seat-number="D7">D7</button>
+                            <button class="seat" data-seat-number="D8">D8</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="selectedSeatDisplay"></div>
+            <form id="reservationForm" action="SeatReservationServlet" method="POST">
+                <input type="hidden" id="seatNumberInput" name="seatNumber">
+                <button id="confirmBtn" type="submit" disabled>Confirm Seat</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const seatButtons = document.querySelectorAll('.seat');
+        const seatNumberInput = document.getElementById('seatNumberInput');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const selectedSeatDisplay = document.getElementById('selectedSeatDisplay');
+
+        seatButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const seatNumber = button.dataset.seatNumber;
+                seatNumberInput.value = seatNumber;
+                selectedSeatDisplay.textContent = `Selected Seat: ${seatNumber}`;
+                confirmBtn.disabled = false;
+            });
+        });
+    </script>
+</body>
+</html>

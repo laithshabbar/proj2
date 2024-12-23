@@ -1,0 +1,348 @@
+
+*{
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+}
+.buttons2 {
+    display: none;
+}
+.banner{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(background.jpg);
+    background-size: cover;
+    background-position: center;
+}
+.navbar{
+    width: 85%;
+    margin: auto;
+    padding: 35px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.logo{
+    width: 120px;
+    cursor: pointer;
+}
+.navbar ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+}
+.navbar ul li a{
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
+.content{
+    width: 100%;
+    position: absolute;
+    margin-top: 20%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: white;
+}
+.content h1{
+    font-size: 80px;
+}
+.content p{
+    font-size: 20px auto;
+    font-weight: 100;
+    line-height: 25px;
+    margin-bottom: 5%;
+    margin-top: 1%;
+}
+/*----------Shared css ends here----------*/
+button{
+    width:25%;
+    padding: 70px 0;
+    text-align: center;
+    border-radius: 25px;
+    margin: 2%;
+    font-weight: bold;
+    border: 2px solid  #ada0d3;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    font-size: 25px;
+    margin-top: 1%;
+}
+span{
+    background:  #ada0d3;
+    height: 100%;
+    width: 0;
+    border-radius: 25px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: 0.5s;
+}
+button:hover span{
+    width: 100%;
+}
+.buttons2 {
+    position: absolute; 
+    top: 63%; 
+    left: 38%; 
+    transform: translate(-50%, -50%); 
+    width:40%;
+    text-align: center;
+    margin: 12%;
+    font-weight: bold;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 1%;
+    z-index: 1;
+}
+.custom-select {
+    position: absolute; 
+    top: 50%; 
+    left: 38%; 
+    transform: translate(-50%, -50%); 
+    font-size: 25px;
+    z-index: 100;
+}
+.custom-select select {
+    display: none; 
+}
+.select-selected {
+    background-color: #ada0d3;
+    width: 300%;
+    border-radius: 25px 25px 0px 0px;
+}
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 23px;
+    left: 300%;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+.select-selected.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 15px;
+}
+.select-items div, .select-selected {
+    color: #ffffff;
+    padding: 12px 20px; 
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+    font-size: 20px; 
+}
+.select-items {
+    position: absolute;
+    background-color:#644ea7 ;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    width: 321%;
+    max-height: 300px; 
+    overflow-y: auto; 
+}
+.select-hide {
+    display: none;
+}
+.select-items div:hover, .same-as-selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.datetime-wrapper{
+    position: absolute;
+    width: 25%;
+    padding: 12px 20px; 
+    margin: 8px 0;
+    display: flex;
+    box-sizing: border-box;
+    background-color: transparent;
+    color: white;
+    font-size: 20px;
+    top: 47%;
+    left:23%;
+}
+.datetime-input {
+    width: 100%;
+    padding: 11px 19px; 
+    background-color: #ada0d3;
+    border: 2px solid #ada0d3;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+.datetime-input:focus {
+    outline: none;
+    border-color: white;
+    box-shadow: 0 0 10px rgba(173,160,211,0.5);
+}
+.datetime-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+.datetime-label {
+    color: #ada0d3;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.datebutton {
+    position: absolute; 
+    top: 75%; 
+    left: 48%; 
+    transform: translate(-50%, -50%); 
+    width:40%;
+    text-align: center;
+    font-weight: bold;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    z-index: 1;
+}
+/*diffrent layout code
+Note that we ran out of time and didn't make all the layouts look as good as the main layout'*/
+@media (max-width: 1250px ) {
+    .content h1 {
+        font-size: 60px;
+        margin-top: 15%;
+    }
+    .content p {
+        font-size: 16px;
+    }
+    button {
+        width: 20%;
+        font-size: 18px;
+        align-content: center;
+        top: 100%;
+    }
+    .custom-select {
+        font-size: 18px;
+        left: 40%;
+        align-content: center;
+    }
+    .datetime-wrapper {
+        width: 60%;
+        left: 20%;
+        left: 20%;
+        align-content: center;
+    }
+    .select-selected {
+    background-color: #ada0d3;
+    width: 200%;
+        align-content: center;
+    }
+    .select-selected:after {
+        display: none; 
+    }
+    .select-items {
+    width: 200%;
+    align-content: center;
+    }
+}
+@media (max-width: 1135px ) {
+    .navbar {
+        flex-direction: column;
+        padding: 20px;
+    }
+    .navbar ul li {
+        margin: 10px 0;
+    }
+    .content h1 {
+        font-size: 60px;
+        margin-top: 25%; 
+    }
+    .content p {
+        font-size: 16px;
+    }
+    button {
+        width: 20%;
+        font-size: 18px;
+        align-content: center;
+        top: 100%;
+    }
+    .custom-select {
+        font-size: 18px;
+        left: 45%;
+        align-content: center;
+    }
+    .datetime-wrapper {
+        width: 20%;
+        left: 20%;
+        left: 20%;
+        align-content: center;
+    }
+     .select-selected {
+    background-color: #ada0d3;
+    width: 150%;
+    border-radius: 25px 25px 0px 0px;
+        align-content: center;
+    }
+    .select-selected:after {
+        display: none; 
+    }
+    .select-items {
+    z-index: 99;
+    width: 150%;
+    }
+    .datebutton {
+        width: 1000px;
+    }
+}
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 20px;
+    }
+    .navbar ul li {
+        margin: 10px 0;
+    }
+    .content h1 {
+        font-size: 20px;
+        margin-top: 50%;
+    }
+    .content p {
+        font-size: 14px;
+    }
+    button {
+        width: 20%;
+        font-size: 16px;
+    }
+    .datetime-wrapper {
+        width: 80%;
+        left: 10%;
+        align-content: center;
+         margin-top: 20%;
+
+    }
+    .custom-select {
+        font-size: 18px;
+        left: 50%;
+        align-content: center;
+
+    }
+     .select-selected {
+        width: 100%;
+        align-content: center;
+    }
+    .select-selected:after {
+        display: none; 
+    }
+    .select-items {
+    width: 100%;
+    }
+    .datebutton {
+        width: 1000px;
+    }
+    
+}

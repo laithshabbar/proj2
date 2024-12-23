@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <title>Al-Kara Al-Tafilah station page</title>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="content">
+                <h1>V YOUR STATION</h1>
+            <p>Choose one of the following supported stations in Al-Al-Kara or Al-Tafilah .</p>
+        </div>
+        <div class="banner">
+            <div class="navbar">
+                <a href="https://www.just.edu.jo/Pages/Default.aspx">
+                    <img src="logo.png" class="logo">
+                </a>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Account</a></li>
+                    <li><a href="#">Stations</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="custom-select" style="width:200px;">
+            <select >
+                <option value="0">Select Station</option>
+                <option value="1">Safi bus station karak</option>
+                <option value="2">Al Karak Central Bus Station</option>
+                <option value="3">Karak Bus Station</option>
+                <option value="4">JETT Bus Station</option>
+            </select>
+        </div>
+        <div class="buttons2">
+            <button><span></span>CONFIRM</button>
+            <button><span></span>DIRECTIONS</button>
+        </div>
+    </body>
+    
+    <!--drop down script-->
+    <script src="dropdownscript.js"></script>
+    
+    <!--directions confirm buttons script-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const stationSelect = document.querySelector('.custom-select select');
+        const confirmButton = document.querySelector('.buttons2 button:first-child');
+        const directionButton = document.querySelector('.buttons2 button:last-child');
+
+        const stationLinks = {
+            '1': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/1jCxBWwrd9Hp7e2E6' 
+            },
+            '2': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/YeMuYc2LTW3G6BS37'
+            },
+            '3': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/pBbT6Zki7wq7AsG47'
+            },
+            '4': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/x6xFQDSnxewftnnS8'
+            }
+        };
+
+        function handleButtonClick(type) {
+            const selectedValue = stationSelect.value;
+        
+            if (selectedValue !== '0') {
+                const link = stationLinks[selectedValue][type];
+                if (link) {
+                    if (type === 'direction') {
+                        window.open(link, '_blank');
+                    } else {
+                        window.location.href = link;
+                    }
+                } else {
+                    alert('No link available for this station.');
+                }
+            } else {
+                alert('Please select a station first.');
+            }
+        }
+            confirmButton.addEventListener('click', () => handleButtonClick('confirm'));
+            directionButton.addEventListener('click', () => handleButtonClick('direction'));
+});
+    </script>
+</html>

@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <title>Irbid station page</title>
+        <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="content">
+                <h1>SELECT YOUR STATION</h1>
+            <p>Choose one of the following supported stations in Irbid.</p>
+        </div>
+        <div class="banner">
+            <div class="navbar">
+                <a href="https://www.just.edu.jo/Pages/Default.aspx">
+                    <img src="logo.png" class="logo">
+                </a>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Account</a></li>
+                    <li><a href="#">Stations</a></li>
+                </ul>
+            </div>
+        </div>
+         <form action="StationSelectServlet" method="post">
+        <div class="custom-select" style="width:200px;">
+            <select name="station" required>
+                <option value="0">Select Station</option>
+                <option value="Sheikh Khalil Bus Station">Sheikh Khalil Bus Station</option>
+                <option value="Jordan Valley Old Bus Station">Jordan Valley Old Bus Station</option>
+                <option value="Fu'arah Bus Station">Fu'arah Bus Station</option>
+                <option value="Bayt Ras Bus Station">Bayt Ras Bus Station</option>
+                <option value="Northern Transit Station">Northern Transit Station</option>
+                <option value="Amman Transit Bus Station">Amman Transit Bus Station</option>
+                <option value="Jerash#1 bus station">Jerash#1 bus station</option>
+                <option value="Jerash#2 bus station">Jerash#2 bus station</option>
+                <option value="Ajloun Bus Station">Ajloun Bus Station</option>
+
+            </select>
+        </div>
+        <div class="buttons2">
+            <button type="submit"><span></span>CONFIRM</button>
+            <button><span></span>DIRECTIONS</button>
+        </div>
+         </form>
+    </body>
+    
+    <!--drop down script-->
+    <script src="dropdownscript.js"></script>
+    
+    <!--directions confirm buttons script-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const stationSelect = document.querySelector('.custom-select select');
+        const confirmButton = document.querySelector('.buttons2 button:first-child');
+        const directionButton = document.querySelector('.buttons2 button:last-child');
+
+        const stationLinks = {
+            '1': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/EGiEDfmnQpJ5SRYF9' 
+            },
+            '2': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/JtywU6BVXwU33qJQ7'
+            },
+            '3': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/nvLFmNJFtik3SZq27'
+            },
+            '4': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/WYagRN8sNoH1dj7o9'
+            },
+            '5': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/xAX2ktUHKsbEFJVm8'
+            },
+            '6': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/rN63VTNsdftAheGs7'
+            },
+            '7': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/bBoXW1r5HVCg9DYX6'
+            },
+            '8': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/BooBHV8XQiA2EK1VA'
+            },
+            '9': {
+            confirm: 'DateTime.html',
+            direction: 'https://maps.app.goo.gl/YaMgEURaSmaAnVg57'
+            }
+        };
+
+    function handleButtonClick(type) {
+            const selectedValue = stationSelect.value;
+        
+            if (selectedValue !== '0') {
+                const link = stationLinks[selectedValue][type];
+                if (link) {
+                    if (type === 'direction') {
+                        window.open(link, '_blank');
+                    } else {
+                        window.location.href = link;
+                    }
+                } else {
+                    alert('No link available for this station.');
+                }
+            } else {
+                alert('Please select a station first.');
+            }
+        }
+            confirmButton.addEventListener('click', () => handleButtonClick('confirm'));
+            directionButton.addEventListener('click', () => handleButtonClick('direction'));
+});
+    </script>
+</html>
