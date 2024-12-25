@@ -1,91 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login or Register</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        table {
-            width: 100%;
-            margin-top: 10px;
-        }
-        td {
-            padding: 8px;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        input[type="submit"], input[type="reset"] {
-            padding: 10px 20px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-        }
-        input[type="reset"] {
-            background-color: #f44336;
-            color: white;
-        }
-        .toggle {
-            text-align: center;
-            margin-top: 10px;
-        }
-        .toggle a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-        input[type="submit"]:hover, input[type="reset"]:hover {
-            opacity: 0.9;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
+    <style>
+input::placeholder {
+    color: white;
+    opacity: 1;
+}
+.datetime-input {
+    border-radius: 15px;
+    padding: 10px;
+    background-color: #ada0d3;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+.datetime-input:focus {
+    outline: none;
+    background-color: white;
+    color: #333;
+}
+.datetime-input:focus::placeholder {
+    opacity: 0;
+}
+        button {
+            width: 15%;
+             padding: 30px 45px;
+            border-radius: 25px;
+            font-size: 20px;
+        }
+        
+    </style>
 <body>
-    <div class="container">
-        <h1>User Login</h1>
-        <form action="LoginServlet" method="post">
-            <table>
-                <tr>
-                    <td><label for="txtName">Enter Email:</label></td>
-                    <td><input type="text" id="txtName" name="txtName" required></td>
-                </tr>
-                <tr>
-                    <td><label for="txtPwd">Enter Password:</label></td>
-                    <td><input type="password" id="txtPwd" name="txtPwd" required></td>
-                </tr>
-                <tr>
-                    <td colspan="2" align="center">
-                        <input type="submit" value="Login">
-                        <input type="reset" value="Reset">
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <div class="toggle">
-            <p>Don't have an account? <a href="register.html">Register here</a></p>
+    <div class="banner">
+        <div class="navbar">
+            <a href="https://www.just.edu.jo/Pages/Default.aspx">
+                <img src="logo.png" class="logo">
+            </a>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Account</a></li>
+                <li><a href="#">Stations</a></li>
+            </ul>
+        </div>  
+        <div class="content">
+            <h1>USER LOGIN</h1>
+            <p>Please enter your credentials to continue</p>
+            <div class="container">
+                <form action="LoginServlet" method="post">
+                    <div class="datetime-wrapper" style="top: 25%; left:30%; border-radius: 20px;width: 40%">
+                        <input type="text" id="txtName" name="txtName" class="datetime-input" placeholder="Enter User" required>
+                    </div>
+                    
+                    <div class="datetime-wrapper" style="top: 37%; left:30%; border-radius: 20px;width: 40%">
+                        <input type="password" id="txtPwd" name="txtPwd" class="datetime-input" placeholder="Enter Password" required>
+                    </div>
+                    
+                    <div style="margin-top: 200px;">
+                        <button type="submit">
+                            <span></span>
+                            Login
+                        </button>
+                        
+                        <button type="reset">
+                            <span></span>
+                            Reset
+                        </button>
+                    </div>
+                </form>
+                <div class="toggle" style="margin-top: 20px;">
+                    <p>Don't have an account? <a href="register.html" style="color: #ada0d3;">Register here</a></p>
+                </div>
+            </div>
         </div>
     </div>
 </body>

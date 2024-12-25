@@ -23,22 +23,24 @@
                 </ul>
             </div>
         </div>
+        <form action="StationSelectServlet" method="post">
         <div class="custom-select" style="width:200px;">
-            <select>
+            <select name="station" required>
                 <option value="0">Select Station</option>
-                <option value="1">المجمع الغربي</option>
-                <option value="2">مجمع باصات الجامعة</option>
-                <option value="3">محطة الباص السريع -الزرقاء</option>
-                <option value="4">مجمع سفريات المفرق الجديد</option>
-                <option value="5">موقف حافلات خط</option>
-                <option value="6">Bus Station Science and Technology University of Jordan's position</option>
-                <option value="7">Zarqa Old bus station.</option>
+                <option value="Western Station">Western Station</option>
+                <option value="University Bus Station">University Bus Station</option>
+                <option value="Fast-bus Station-Zarqa">Fast-bus Station-Zarqa</option>
+                <option value="New Mafraq Transport Station">New Mafraq Transport Station</option>
+                <option value="Khat Bus Station">Khat Bus Station</option>
+                <option value="Bus Station Science and Technology University of Jordan's position">Bus Station Science and Technology University of Jordan's position</option>
+                <option value="Zarqa Old bus station">Zarqa Old bus station</option>
             </select>
         </div>
         <div class="buttons2">
-            <button><span></span>CONFIRM</button>
+            <button type="submit"><span></span>CONFIRM</button>
             <button><span></span>DIRECTIONS</button>
         </div>
+         </form>
     </body>
     
     <!--drop down script-->

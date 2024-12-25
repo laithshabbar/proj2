@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head section remains unchanged -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUST Bus Reservation System</title>
+    <style>
+        /* Previous styles remain the same */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080');
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 2rem;
+        }
+
+        .logo {
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+        }
+
+        .main-content {
+            padding: 4rem 2rem;
+            background: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .main-content.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .content-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .content-text p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .system-workflow {
+            padding: 4rem 2rem;
+            background: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .system-workflow.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .workflow-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .workflow-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .workflow-header h2 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .step-card {
+            background: #666;
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .step-card h3 {
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .step-card ul {
+            list-style-position: inside;
+            margin-top: 1.5rem;
+        }
+
+        .step-card li {
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .system-explanation {
+            background: #666;
+            color: white;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .system-explanation.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .system-explanation-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .system-explanation-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .system-explanation-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .workflow-steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 300px;
+            }
+            
+            .content-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <img src="logo.png" class="logo">
+        <div class="hero-content">
+            <h1>Welcome to the Bus Reservation System<br>for JUST University</h1>
+        </div>
+    </section>
+
+    <section class="main-content">
+        <div class="content-section">
+            <div class="content-text">
+                <h2>Make going to JUST easier</h2>
+                <p>The bus reservation system will significantly streamline the process for students traveling to the university. By allowing students to reserve their seats in advance, reducing wait times and minimizing overcrowding.</p>
+                <p>This efficiency not only helps students save time but also provides them with a more reliable means of transportation, allowing them to arrive on campus faster and more comfortably. Overall, it enhances the commuting experience, making it easier for students focus on their studies rather than transportation logistics.</p>
+            </div>
+            
+            <div class="content-image">
+                <img src="stationimage.png" style="width: 100%; height: auto;">
+            </div>
+        </div>
+    </section>
+
+    <section class="system-explanation">
+        <div class="system-explanation-content">
+            <h2>How the system works:</h2>
+            <p>The reservation system goes through four main pages. It starts with the city selection page where users choose the city they live in. This leads to the station selection page showing a number of available stations within those cities, often including landmarks. The date and time selection page follows, displaying a calendar of available dates and a drop down for bus departure timings. Finally, the seat selection page presents an interactive bus layout showing available, booked, and selected seats.</p>
+        </div>
+    </section>
+
+    <section class="system-workflow">
+        <div class="workflow-container">
+            <div class="workflow-header">
+                <h2>After logging in the system will show you the following 4 pages:</h2>
+            </div>
+            <div class="workflow-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>City Selection Page</h3>
+                    <ul>
+                        <li>Users first select their source and destination cities</li>
+                        <li>The system shows only cities where bus service is available</li>
+                        <li>Once both cities are selected, users can proceed to station selection</li>
+                    </ul>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Station Selection Page</h3>
+                    <ul>
+                        <li>Shows available stations in the selected cities</li>
+                        <li>Typically includes popular landmarks, bus terminals, and agency offices</li>
+                        <li>Each station might have different timing options</li>
+                    </ul>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Date and Time Selection Page</h3>
+                    <ul>
+                        <li>Displays a calendar showing available dates</li>
+                        <li>Displays a drop down list with all available bus timings</li>
+                    </ul>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Seat Selection Page</h3>
+                    <ul>
+                        <li>Shows an interactive bus layout</li>
+                        <li>Displays seat status (Available, Booked, Selected)</li>
+                        <li>Displays a button to confirm your seat selection</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for fade effects
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections that should fade in
+        const sections = document.querySelectorAll('.main-content, .system-workflow, .system-explanation');
+        sections.forEach(section => observer.observe(section));
+    </script>
+</body>
+</html>

@@ -23,23 +23,25 @@
                 </ul>
             </div>
         </div>
+        <form action="StationSelectServlet" method="post">
         <div class="custom-select" style="width:200px;">
-            <select>
+            <select name="station" required>
                 <option value="0">Select Station</option>
-                <option value="1">Tabarbour Station</option>
-                <option value="2">JETT Abdali Office</option>
-                <option value="3">Amman Station</option>
-                <option value="4">Jordan Museum Station</option>
-                <option value="5">South complex station</option>
-                <option value="6">Sweileh BRT Station</option>
-                <option value="7">Al Jizah Bus Station</option>
-                <option value="8">Sports City BRT Station</option>
+                <option value="Tabarbour Station">Tabarbour Station</option>
+                <option value="JETT Abdali Office">JETT Abdali Office</option>
+                <option value="Amman Station">Amman Station</option>
+                <option value="Jordan Museum Station">Jordan Museum Station</option>
+                <option value="South complex station">South complex station</option>
+                <option value="Sweileh BRT Station">Sweileh BRT Station</option>
+                <option value="Al Jizah Bus Station">Al Jizah Bus Station</option>
+                <option value="Sports City BRT Station">Sports City BRT Station</option>
             </select>
         </div>   
         <div class="buttons2">
-                <button><span></span>CONFIRM</button>
+                <button type="submit"><span></span>CONFIRM</button>
                 <button><span></span>DIRECTIONS</button>
         </div>
+        </form>
     </body>
     
     <!--drop down script-->

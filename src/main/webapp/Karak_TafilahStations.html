@@ -23,19 +23,21 @@
                 </ul>
             </div>
         </div>
+        <form action="StationSelectServlet" method="post">
         <div class="custom-select" style="width:200px;">
-            <select >
+            <select name="station" required>
                 <option value="0">Select Station</option>
-                <option value="1">Safi bus station karak</option>
-                <option value="2">Al Karak Central Bus Station</option>
-                <option value="3">Karak Bus Station</option>
-                <option value="4">JETT Bus Station</option>
+                <option value="Safi bus station karak">Safi bus station karak</option>
+                <option value="Al Karak Central Bus Station">Al Karak Central Bus Station</option>
+                <option value="Karak Bus Station">Karak Bus Station</option>
+                <option value="JETT Bus Station">JETT Bus Station</option>
             </select>
         </div>
         <div class="buttons2">
-            <button><span></span>CONFIRM</button>
+            <button type="submit"><span></span>CONFIRM</button>
             <button><span></span>DIRECTIONS</button>
         </div>
+         </form>
     </body>
     
     <!--drop down script-->
