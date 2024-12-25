@@ -33,10 +33,10 @@ public class LoginServlet extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Establish database connection
-            con = DriverManager.getConnection("jdbc:mysql://192.168.1.83/bus_system", "root", "root");
+            con = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
 
             // Prepare SQL query
-            String query = "SELECT id, username FROM users WHERE username = ? AND password = ?";
+            String query = "SELECT user_id, username FROM users WHERE username = ? AND password = ?";
             ps = con.prepareStatement(query);
             ps.setString(1, username);
             ps.setString(2, password);
@@ -44,10 +44,10 @@ public class LoginServlet extends HttpServlet {
 
             if (rs.next()) {
                 // Login successful
-                int userId = rs.getInt("id"); // Retrieve the user ID from the database
+                int userId = rs.getInt("user_id"); // Retrieve the user ID from the database
                 HttpSession session = request.getSession(); // Create a new session
                 session.setAttribute("username", username); // Store username in session
-                session.setAttribute("id", userId); // Store user ID in session
+                session.setAttribute("user_id", userId); // Store user ID in session
 
                 // Redirect to station page or dashboard
                 response.sendRedirect("stationpage1.html");

@@ -32,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Use try-with-resources to manage resources
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://192.168.1.83/bus_system", "root", "root");
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
                  PreparedStatement ps = con.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)")) {
 
                 ps.setString(1, username);

@@ -23,7 +23,7 @@ public class ReservationServlet extends HttpServlet {
 
         // Retrieve information from session
         String username = (String) session.getAttribute("username");
-        Integer userId = (Integer) session.getAttribute("id"); 
+        Integer userId = (Integer) session.getAttribute("user_id"); 
         String seatNumber = (String) session.getAttribute("seatNumber");
         Integer rideId = (Integer) session.getAttribute("rideId");
 
@@ -47,7 +47,7 @@ public class ReservationServlet extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Establish database connection
-            con = DriverManager.getConnection("jdbc:mysql://192.168.1.83/bus_system", "root", "root");
+            con = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
 
             // SQL query to insert reservation data into the database
             String query = "INSERT INTO reservations (user_id, ride_id, seat_number) "

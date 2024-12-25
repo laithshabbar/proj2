@@ -57,7 +57,7 @@ public class SaveDateTimeServlet extends HttpServlet {
 
             try {
                 // Connect to the database
-                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bus_system", "root", "Laith2002");
+                con = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
 
                 // Format departure_time (if needed)
                 String formattedDate = fullDateTime.replace("T", " "); // Adjust if needed
@@ -83,7 +83,7 @@ public class SaveDateTimeServlet extends HttpServlet {
                     session.setAttribute("rideId", rideId);
 
                     // Redirect to the seat selection page
-                    response.sendRedirect("seatsellection.html");
+                    response.sendRedirect("seatsellection.jsp");
                 } else {
                     response.getWriter().write("No ride found for the selected parameters.");
                 }
