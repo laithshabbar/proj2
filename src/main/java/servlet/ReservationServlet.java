@@ -1,17 +1,19 @@
 package servlet;
 
+import util.DBConnection;
+
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 @WebServlet("/ReservationServlet")
 public class ReservationServlet extends HttpServlet {
@@ -23,7 +25,7 @@ public class ReservationServlet extends HttpServlet {
 
         // Retrieve information from session
         String username = (String) session.getAttribute("username");
-        Integer userId = (Integer) session.getAttribute("user_id"); 
+        Integer userId = (Integer) session.getAttribute("user_id");
         String seatNumber = (String) session.getAttribute("seatNumber");
         Integer rideId = (Integer) session.getAttribute("rideId");
 
@@ -32,27 +34,25 @@ public class ReservationServlet extends HttpServlet {
         System.out.println("User ID: " + userId);
         System.out.println("Seat Number: " + seatNumber);
         System.out.println("Ride ID: " + rideId);
-
         // Validate data (ensure all necessary data is available)
         if (username == null || userId == null || seatNumber == null || rideId == null) {
             response.getWriter().write("Error: Missing reservation details.");
             return;
         }
 
-        Connection con = null;
-        PreparedStatement ps = null;
+        // Check if the user already has a reservation for this ride
+        if (isUserAlreadyReserved(userId, rideId)) {
+            // If user is already reserved, return an error message
+            response.getWriter().write("You have already reserved a seat for this ride.");
+            return;
+        }
 
-        try {
-            // Load JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        // Use try-with-resources for better resource management
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(
+                     "INSERT INTO reservations (user_id, ride_id, seat_number) VALUES (?, ?, ?)")) {
 
-            // Establish database connection
-            con = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
-
-            // SQL query to insert reservation data into the database
-            String query = "INSERT INTO reservations (user_id, ride_id, seat_number) "
-                         + "VALUES (?, ?, ?)";
-            ps = con.prepareStatement(query);
+            // Set query parameters
             ps.setInt(1, userId); // User ID
             ps.setInt(2, rideId); // Ride ID
             ps.setString(3, seatNumber); // Seat number
@@ -60,25 +60,36 @@ public class ReservationServlet extends HttpServlet {
             // Execute the query
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                // Registration successful, show confirmation page
+                // Reservation successful, redirect to confirmation page
                 response.sendRedirect("confirmation.jsp");
             } else {
-                // Registration failed
+                // Reservation failed
                 response.getWriter().write("Error: Could not complete reservation.");
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            response.getWriter().write("Error: JDBC Driver not found.");
         } catch (SQLException e) {
             e.printStackTrace();
             response.getWriter().write("Database error: " + e.getMessage());
-        } finally {
-            try {
-                if (ps != null) ps.close();
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
+    }
+
+    // Method to check if the user has already reserved a seat for the same ride
+    private boolean isUserAlreadyReserved(Integer userId, Integer rideId) {
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(
+                     "SELECT COUNT(*) FROM reservations WHERE user_id = ? AND ride_id = ?")) {
+
+            ps.setInt(1, userId); // User ID
+            ps.setInt(2, rideId); // Ride ID
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    // Reservation already exists for this user and ride
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

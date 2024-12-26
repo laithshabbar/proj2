@@ -1,11 +1,13 @@
 package servlet;
 
+import util.DBConnection;
+
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,17 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class SaveDateTimeServlet
- */
 @WebServlet("/SaveDateTimeServlet")
 public class SaveDateTimeServlet extends HttpServlet {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String departureDate = request.getParameter("departure-date"); // Get date
         String departureTime = request.getParameter("departure-time"); // Get time
 
@@ -51,56 +48,37 @@ public class SaveDateTimeServlet extends HttpServlet {
                 return;
             }
 
-            Connection con = null;
-            PreparedStatement ps = null;
-            ResultSet rs = null;
+            // Use try-with-resources for better resource management
+            try (Connection con = DBConnection.getConnection();
+                 PreparedStatement ps = con.prepareStatement(
+                         "SELECT r.ride_id "
+                         + "FROM rides r "
+                         + "JOIN cities c ON r.city_id = c.id "
+                         + "JOIN stations s ON r.station_id = s.id "
+                         + "WHERE c.name = ? AND s.name = ? AND r.departure_time = ?")) {
 
-            try {
-                // Connect to the database
-                con = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
-
-                // Format departure_time (if needed)
-                String formattedDate = fullDateTime.replace("T", " "); // Adjust if needed
-
-                // Query to retrieve the ride_id
-                String query = "SELECT r.ride_id "
-                             + "FROM rides r "
-                             + "JOIN cities c ON r.city_id = c.id "
-                             + "JOIN stations s ON r.station_id = s.id "
-                             + "WHERE c.name = ? AND s.name = ? AND r.departure_time = ?";
-
-                ps = con.prepareStatement(query);
+                // Set query parameters
                 ps.setString(1, city); // Set the city
                 ps.setString(2, station); // Set the station
-                ps.setString(3, formattedDate); // Set the departure time
+                ps.setString(3, fullDateTime); // Set the departure time
 
-                rs = ps.executeQuery();
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        int rideId = rs.getInt("ride_id");
 
-                if (rs.next()) {
-                    int rideId = rs.getInt("ride_id");
+                        // Store the ride_id in the session
+                        session.setAttribute("rideId", rideId);
 
-                    // Store the ride_id in the session
-                    session.setAttribute("rideId", rideId);
-
-                    // Redirect to the seat selection page
-                    response.sendRedirect("seatsellection.jsp");
-                } else {
-                    response.getWriter().write("No ride found for the selected parameters.");
+                        // Redirect to the seat selection page
+                        response.sendRedirect("seatsellection.jsp");
+                    } else {
+                        response.getWriter().write("No ride found for the selected parameters.");
+                    }
                 }
-
             } catch (SQLException e) {
                 e.printStackTrace();
                 response.getWriter().write("Database error: " + e.getMessage());
-            } finally {
-                try {
-                    if (rs != null) rs.close();
-                    if (ps != null) ps.close();
-                    if (con != null) con.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             }
-
         } else {
             // If the form submission is invalid, redirect back with an error
             response.getWriter().write("Please select both a date and time.");

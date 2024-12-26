@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Head section remains unchanged -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JUST Bus Reservation System</title>
     <style>
-        /* Previous styles remain the same */
         * {
             margin: 0;
             padding: 0;
@@ -59,16 +57,22 @@
             align-items: center;
         }
 
+        .content-text {
+            text-align: left;
+        }
+
         .content-text h2 {
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
             color: #333;
+            text-align: left;
         }
 
         .content-text p {
             font-size: 1.1rem;
             line-height: 1.6;
             color: #333;
+            text-align: left;
         }
 
         .system-workflow {
@@ -116,6 +120,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+            text-align: left;
         }
 
         .step-number {
@@ -143,12 +148,14 @@
         .step-card ul {
             list-style-position: inside;
             margin-top: 1.5rem;
+            text-align: left;
         }
 
         .step-card li {
             margin: 1rem 0;
             font-size: 1.1rem;
             line-height: 1.4;
+            text-align: left;
         }
 
         .system-explanation {
@@ -169,18 +176,95 @@
         .system-explanation-content {
             max-width: 1200px;
             margin: 0 auto;
+            text-align: left;
         }
 
         .system-explanation-content h2 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
             color: white;
+            text-align: left;
         }
 
         .system-explanation-content p {
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .conclusion-section {
+            background: #fff;
+            padding: 4rem 2rem;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .conclusion-section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .conclusion-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .conclusion-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #333;
+            text-align: left;
+        }
+
+        .conclusion-content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .login-section {
+            background: #666;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .login-section.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .login-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            background: #333;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+        }
+
+        .login-button:hover {
+            background: #444;
+        }
+
+        .login-text {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         @media (max-width: 1200px) {
@@ -282,8 +366,22 @@
         </div>
     </section>
 
+    <section class="conclusion-section">
+        <div class="conclusion-content">
+            <h2>Conclusion</h2>
+            <p>Our website understands that reliable transportation is crucial for academic success. The system represents our commitment to providing students with a seamless, efficient, and stress-free experience. By eliminating the uncertainty and inconvenience of traditional bus services, we're not just offering transportation – we're hoping to improve the students academic journey.
+            <br>With features like advance booking, flexible scheduling, and guaranteed seating, we're making sure that transportation is the least of your worries.
+            </p>
+            
+        </div>
+    </section>
+
+    <section class="login-section">
+        <p class="login-text">Ready to make your reservation?</p>
+        <a href="login.html" class="login-button">Proceed to Login</a>
+    </section>
+
     <script>
-        // Intersection Observer for fade effects
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -298,8 +396,7 @@
             });
         }, observerOptions);
 
-        // Observe all sections that should fade in
-        const sections = document.querySelectorAll('.main-content, .system-workflow, .system-explanation');
+        const sections = document.querySelectorAll('.main-content, .system-workflow, .system-explanation, .conclusion-section, .login-section');
         sections.forEach(section => observer.observe(section));
     </script>
 </body>

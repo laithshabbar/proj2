@@ -1,7 +1,11 @@
 package servlet;
 
+import util.DBConnection;
+
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +23,7 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("txtName");
         String password = request.getParameter("txtPwd");
 
+        // Validate inputs
         if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
             response.setContentType("text/html");
             response.getWriter().println("<h3 style='color:red;'>Username and password cannot be empty.</h3>");
@@ -27,34 +32,25 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
-        try {
-            // Load the JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        // Use try-with-resources for better resource management
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)")) {
 
-            // Use try-with-resources to manage resources
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
-                 PreparedStatement ps = con.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)")) {
+            ps.setString(1, username);
+            ps.setString(2, password); // TODO: Replace with hashed password for security
 
-                ps.setString(1, username);
-                ps.setString(2, password); // TODO: Replace with hashed password
-
-                int rowsInserted = ps.executeUpdate();
-                if (rowsInserted > 0) {
-                    response.setContentType("text/html");
-                    response.getWriter().println("<h3 style='color:green;'>Registration successful! You can now login.</h3>");
-                    RequestDispatcher rd = request.getRequestDispatcher("login.html");
-                    rd.include(request, response);
-                } else {
-                    response.setContentType("text/html");
-                    response.getWriter().println("<h3 style='color:red;'>Registration failed. Please try again.</h3>");
-                    RequestDispatcher rd = request.getRequestDispatcher("register.html");
-                    rd.include(request, response);
-                }
+            int rowsInserted = ps.executeUpdate();
+            if (rowsInserted > 0) {
+                response.setContentType("text/html");
+                response.getWriter().println("<h3 style='color:green;'>Registration successful! You can now login.</h3>");
+                RequestDispatcher rd = request.getRequestDispatcher("login.html");
+                rd.include(request, response);
+            } else {
+                response.setContentType("text/html");
+                response.getWriter().println("<h3 style='color:red;'>Registration failed. Please try again.</h3>");
+                RequestDispatcher rd = request.getRequestDispatcher("register.html");
+                rd.include(request, response);
             }
-        } catch (ClassNotFoundException e) {
-            log("JDBC Driver not found", e);
-            response.setContentType("text/html");
-            response.getWriter().println("<h3 style='color:red;'>Error: JDBC Driver not found.</h3>");
         } catch (SQLException e) {
             log("Database connection error", e);
             response.setContentType("text/html");

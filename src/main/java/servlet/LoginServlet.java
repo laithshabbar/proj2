@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import util.DBConnection;
+
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -24,56 +25,32 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("txtName");
         String password = request.getParameter("txtPwd");
 
-        Connection con = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT user_id, username FROM users WHERE username = ? AND password = ?")) {
 
-        try {
-            // Load JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            // Establish database connection
-            con = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
-
-            // Prepare SQL query
-            String query = "SELECT user_id, username FROM users WHERE username = ? AND password = ?";
-            ps = con.prepareStatement(query);
             ps.setString(1, username);
             ps.setString(2, password);
-            rs = ps.executeQuery();
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Login successful
+                    int userId = rs.getInt("user_id"); // Retrieve the user ID from the database
+                    HttpSession session = request.getSession(); // Create a new session
+                    session.setAttribute("username", username); // Store username in session
+                    session.setAttribute("user_id", userId); // Store user ID in session
 
-            if (rs.next()) {
-                // Login successful
-                int userId = rs.getInt("user_id"); // Retrieve the user ID from the database
-                HttpSession session = request.getSession(); // Create a new session
-                session.setAttribute("username", username); // Store username in session
-                session.setAttribute("user_id", userId); // Store user ID in session
-
-                // Redirect to station page or dashboard
-                response.sendRedirect("stationpage1.html");
-            } else {
-                // Login failed
-                request.setAttribute("errorMessage", "Invalid username or password. Please try again.");
-                RequestDispatcher rd = request.getRequestDispatcher("login.html");
-                rd.forward(request, response);
+                    // Redirect to station page or dashboard
+                    response.sendRedirect("stationpage1.html");
+                } else {
+                    // Login failed
+                    request.setAttribute("errorMessage", "Invalid username or password. Please try again.");
+                    RequestDispatcher rd = request.getRequestDispatcher("login.html");
+                    rd.forward(request, response);
+                }
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            response.setContentType("text/html");
-            response.getWriter().println("<h3 style='color:red;'>Error: JDBC Driver not found.</h3>");
         } catch (SQLException e) {
             e.printStackTrace();
             response.setContentType("text/html");
             response.getWriter().println("<h3 style='color:red;'>Database connection error: " + e.getMessage() + "</h3>");
-        } finally {
-            // Close resources
-            try {
-                if (rs != null) rs.close();
-                if (ps != null) ps.close();
-                if (con != null) con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

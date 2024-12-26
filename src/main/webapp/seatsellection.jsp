@@ -26,30 +26,25 @@
             <p>Choose one of the following open seats. Reserved seats will be grayed out.</p>
 
             <% 
-                // Get rideId from session
+                // Database connection code
                 Integer rideId = (Integer) session.getAttribute("rideId");
                 if (rideId == null) {
                     out.print("Ride ID is not set.");
                     return;
                 }
 
-                // Database connection setup
                 Connection connection = null;
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
-                Set<String> reservedSeats = new HashSet<String>(); // Explicit type for Java < 1.7
+                Set<String> reservedSeats = new HashSet<String>(); // Fixed: Explicitly specify the type
 
                 try {
-                    // Assuming a JDBC connection is established
-                    connection = DriverManager.getConnection("jdbc:mysql://database-1.ctko6w88sr3f.eu-north-1.rds.amazonaws.com/bus_system", "laith", "Laith2002");
-
-                    // Query to fetch reserved seat numbers for the given rideId
+                    connection = util.DBConnection.getConnection();
                     String sql = "SELECT seat_number FROM reservations WHERE ride_id = ?";
                     stmt = connection.prepareStatement(sql);
                     stmt.setInt(1, rideId);
                     rs = stmt.executeQuery();
 
-                    // Populate reservedSeats with seat numbers
                     while (rs.next()) {
                         reservedSeats.add(rs.getString("seat_number"));
                     }
@@ -71,9 +66,10 @@
                     <div class="top-seats">
                         <div class="seat-column">
                             <% 
-                                // Generate seat buttons for the first part of the bus
-                                String[] seats = {"A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"};
-                                for (String seat : seats) {
+                                // Generate A and B row seats for top section
+                                String[] topSeats = {"A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8",
+                                                   "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8"};
+                                for (String seat : topSeats) {
                                     boolean isReserved = reservedSeats.contains(seat);
                                     String disabledAttribute = isReserved ? "disabled" : "";
                                     String style = isReserved ? "background-color: gray;" : "";
@@ -85,8 +81,9 @@
                     <div class="bottom-seats">
                         <div class="seat-column">
                             <% 
-                                // Generate seat buttons for the second part of the bus
-                                String[] bottomSeats = {"A5", "A6", "A7", "A8", "B5", "B6", "B7", "B8", "C5", "C6", "C7", "C8", "D5", "D6", "D7", "D8"};
+                                // Generate C and D row seats for bottom section
+                                String[] bottomSeats = {"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8",
+                                                      "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"};
                                 for (String seat : bottomSeats) {
                                     boolean isReserved = reservedSeats.contains(seat);
                                     String disabledAttribute = isReserved ? "disabled" : "";
@@ -112,30 +109,22 @@
         const seatNumberInput = document.getElementById('seatNumberInput');
         const confirmBtn = document.getElementById('confirmBtn');
 
-        // Loop through all seat buttons and add an event listener
         seatButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Skip reserved seats (those that are disabled or gray)
                 if (button.disabled || button.style.backgroundColor === "gray") {
                     return;
                 }
 
-                const seatNumber = button.dataset.seatNumber; // Get seat number from the button's data attribute
+                const seatNumber = button.dataset.seatNumber;
                 
-                // Reset all seat buttons to default state (no background color)
                 seatButtons.forEach(btn => {
                     if (!btn.disabled && btn.style.backgroundColor !== "gray") {
-                        btn.style.backgroundColor = ""; // Reset background color for available seats
+                        btn.style.backgroundColor = "";
                     }
                 });
 
-                // Set the seat number in the hidden input field
                 seatNumberInput.value = seatNumber;
-
-                // Update the color of the clicked seat to indicate selection
-                button.style.backgroundColor = "green";  // Selected seat color
-
-                // Enable the confirmation button
+                button.style.backgroundColor = "#644ea7";
                 confirmBtn.disabled = false;
             });
         });

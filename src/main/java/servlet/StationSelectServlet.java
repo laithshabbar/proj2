@@ -22,7 +22,7 @@ public class StationSelectServlet extends HttpServlet {
             session.setAttribute("selectedStation", station);
 
             // Redirect to the DateTime page where the user selects the time
-            response.sendRedirect("DateTime.html");
+            response.sendRedirect("DateTime.jsp");
         } else {
             response.setContentType("text/html");
             response.getWriter().println("<h3 style='color:red;'>Please select a station.</h3>");
