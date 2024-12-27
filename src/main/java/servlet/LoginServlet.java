@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import util.DBConnection;
 
-
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -37,6 +36,12 @@ public class LoginServlet extends HttpServlet {
                     HttpSession session = request.getSession(); // Create a new session
                     session.setAttribute("username", username); // Store username in session
                     session.setAttribute("user_id", userId); // Store user ID in session
+
+                    // Update the last_login field to the current timestamp
+                    try (PreparedStatement updatePs = con.prepareStatement("UPDATE users SET last_login = NOW() WHERE user_id = ?")) {
+                        updatePs.setInt(1, userId); // Set the user_id to update the correct user
+                        updatePs.executeUpdate(); // Execute the update query
+                    }
 
                     // Redirect to station page or dashboard
                     response.sendRedirect("stationpage1.html");

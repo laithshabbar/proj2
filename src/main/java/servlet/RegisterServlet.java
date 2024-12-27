@@ -20,13 +20,14 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("txtName");
-        String password = request.getParameter("txtPwd");
+        String username = request.getParameter("username");  // Matching name attribute in HTML
+        String password = request.getParameter("password");  // Matching name attribute in HTML
+        String email = request.getParameter("email");        // Capture the email parameter
 
         // Validate inputs
-        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty() || email == null || email.trim().isEmpty()) {
             response.setContentType("text/html");
-            response.getWriter().println("<h3 style='color:red;'>Username and password cannot be empty.</h3>");
+            response.getWriter().println("<h3 style='color:red;'>All fields are required.</h3>");
             RequestDispatcher rd = request.getRequestDispatcher("register.html");
             rd.include(request, response);
             return;
@@ -34,16 +35,16 @@ public class RegisterServlet extends HttpServlet {
 
         // Use try-with-resources for better resource management
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("INSERT INTO users (username, password) VALUES (?, ?)")) {
+             PreparedStatement ps = con.prepareStatement("INSERT INTO users (username, password, email) VALUES (?, ?, ?)")) {
 
             ps.setString(1, username);
             ps.setString(2, password); // TODO: Replace with hashed password for security
+            ps.setString(3, email);    // Insert the email
 
             int rowsInserted = ps.executeUpdate();
             if (rowsInserted > 0) {
                 response.setContentType("text/html");
-                response.getWriter().println("<h3 style='color:green;'>Registration successful! You can now login.</h3>");
-                RequestDispatcher rd = request.getRequestDispatcher("login.html");
+                RequestDispatcher rd = request.getRequestDispatcher("index.html");
                 rd.include(request, response);
             } else {
                 response.setContentType("text/html");

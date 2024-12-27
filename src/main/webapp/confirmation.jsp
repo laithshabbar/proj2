@@ -108,7 +108,7 @@ span {
                 </a>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Account</a></li>
+                    <li><a href="ReservationHistoryServlet">Account</a></li>
                     <li><a href="#">Stations</a></li>
                 </ul>
             </div>          
