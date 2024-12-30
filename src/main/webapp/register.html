@@ -36,6 +36,19 @@
             margin-top: 5px;
             display: none;
         }
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 300px;
+            }
+            
+            .content {
+                grid-template-columns:0.5fr;
+                margin-top: 10em;
+            }
+            .container{
+                margin-top: 20em;
+            }  
+        }
     </style>
 </head>
 <body>
@@ -44,11 +57,6 @@
             <a href="https://www.just.edu.jo/Pages/Default.aspx">
                 <img src="logo.png" class="logo">
             </a>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Account</a></li>
-                <li><a href="#">Stations</a></li>
-            </ul>
         </div>  
         <div class="content" style="top:12%">
             <h1>USER REGISTRATION</h1>
@@ -66,6 +74,11 @@
                     <div class="datetime-wrapper" style="top: 50%; left:30%; border-radius: 20px;width: 40%">
                         <input type="password" id="password" name="password" class="datetime-input" placeholder="Enter Password" required>
                         <div id="passwordError" class="error"></div>
+                    </div>
+                    <!-- New uni_id input, only numeric -->
+                    <div class="datetime-wrapper" style="top: 62%; left:30%; border-radius: 20px;width: 40%">
+                        <input type="number" id="uni_id" name="uni_id" class="datetime-input" placeholder="Enter University ID" required>
+                        <div id="uniIdError" class="error"></div>
                     </div>
                     
                     <div style="margin-top: 250px;">
@@ -91,13 +104,16 @@
             const email = document.getElementById('email').value;
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            
+            const uniId = document.getElementById('uni_id').value;
+
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             const userRegex = /^[^\s]{1,15}$/;
             const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[^\s]{1,20}$/;
-            
+            const uniIdRegex = /^[0-9]{1,20}$/; 
+
             let isValid = true;
-            
+
+            // Validate email
             if (!emailRegex.test(email)) {
                 document.getElementById('emailError').style.display = 'block';
                 document.getElementById('emailError').textContent = 'Please enter a valid email address';
@@ -105,7 +121,8 @@
             } else {
                 document.getElementById('emailError').style.display = 'none';
             }
-            
+
+            // Validate username
             if (!userRegex.test(username)) {
                 document.getElementById('userError').style.display = 'block';
                 document.getElementById('userError').textContent = 'Username must not exceed 15 characters and cannot contain spaces';
@@ -113,7 +130,8 @@
             } else {
                 document.getElementById('userError').style.display = 'none';
             }
-            
+
+            // Validate password
             if (!passwordRegex.test(password)) {
                 document.getElementById('passwordError').style.display = 'block';
                 document.getElementById('passwordError').textContent = 'Password must contain at least one uppercase letter, one lowercase letter, one number, no spaces, and be 1-20 characters long';
@@ -121,7 +139,16 @@
             } else {
                 document.getElementById('passwordError').style.display = 'none';
             }
-            
+
+            // Validate uni_id 
+            if (!uniIdRegex.test(uniId)) {
+                document.getElementById('uniIdError').style.display = 'block';
+                document.getElementById('uniIdError').textContent = 'University ID must be numeric and 1-20 digits long';
+                isValid = false;
+            } else {
+                document.getElementById('uniIdError').style.display = 'none';
+            }
+
             if (isValid) {
                 this.submit();
             }

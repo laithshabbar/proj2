@@ -48,7 +48,7 @@ public class SaveDateTimeServlet extends HttpServlet {
                 return;
             }
 
-            // Use try-with-resources for better resource management
+            
             try (Connection con = DBConnection.getConnection();
                  PreparedStatement ps = con.prepareStatement(
                          "SELECT r.ride_id "
@@ -70,7 +70,7 @@ public class SaveDateTimeServlet extends HttpServlet {
                         session.setAttribute("rideId", rideId);
 
                         // Redirect to the seat selection page
-                        response.sendRedirect("seatsellection.jsp");
+                        response.sendRedirect("SeatAvailabilityServlet");
                     } else {
                         response.getWriter().write("No ride found for the selected parameters.");
                     }

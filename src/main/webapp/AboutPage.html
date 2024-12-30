@@ -13,7 +13,7 @@
         }
 
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1920/1080');
+            background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(background.jpg);
             height: 60vh;
             display: flex;
             flex-direction: column;
@@ -111,7 +111,7 @@
         }
 
         .step-card {
-            background: #666;
+            background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(background.jpg);
             color: white;
             padding: 3rem 2rem;
             border-radius: 12px;
@@ -128,7 +128,7 @@
             top: -25px;
             left: 50%;
             transform: translateX(-50%);
-            background: #333;
+            background: #644ea7;
             width: 50px;
             height: 50px;
             border-radius: 50%;
@@ -159,7 +159,7 @@
         }
 
         .system-explanation {
-            background: #666;
+            background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(background.jpg);
             color: white;
             padding: 4rem 2rem;
             margin-top: 4rem;
@@ -194,8 +194,9 @@
         }
 
         .conclusion-section {
-            background: #fff;
-            padding: 4rem 2rem;
+            background: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(background.jpg);
+            padding: 6rem 3rem;
+            text-align: center;
             margin-top: 2rem;
             opacity: 0;
             transform: translateY(20px);
@@ -210,37 +211,20 @@
         .conclusion-content {
             max-width: 1200px;
             margin: 0 auto;
-            text-align: left;
+            text-align: center;
         }
 
         .conclusion-content h2 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
-            color: #333;
-            text-align: left;
+            color: white;
         }
 
         .conclusion-content p {
             font-size: 1.2rem;
             line-height: 1.8;
-            color: #333;
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-
-        .login-section {
-            background: #666;
-            padding: 4rem 2rem;
-            text-align: center;
-            margin-top: 2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .login-section.fade-in {
-            opacity: 1;
-            transform: translateY(0);
+            color: white;
+            margin-bottom: 2rem;
         }
 
         .login-button {
@@ -249,7 +233,7 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: white;
-            background: #333;
+            background: #644ea7;
             border: none;
             border-radius: 30px;
             cursor: pointer;
@@ -258,13 +242,7 @@
         }
 
         .login-button:hover {
-            background: #444;
-        }
-
-        .login-text {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
+            background: #ada0d3;
         }
 
         @media (max-width: 1200px) {
@@ -368,17 +346,12 @@
 
     <section class="conclusion-section">
         <div class="conclusion-content">
-            <h2>Conclusion</h2>
-            <p>Our website understands that reliable transportation is crucial for academic success. The system represents our commitment to providing students with a seamless, efficient, and stress-free experience. By eliminating the uncertainty and inconvenience of traditional bus services, we're not just offering transportation – we're hoping to improve the students academic journey.
-            <br>With features like advance booking, flexible scheduling, and guaranteed seating, we're making sure that transportation is the least of your worries.
-            </p>
-            
+            <h2 style="text-align: left;">Conclusion</h2>
+            <p style="text-align: left;"> Our website understands that reliable transportation is crucial for academic success. The system represents our commitment to providing students with a seamless, efficient, and stress-free experience. By eliminating the uncertainty and inconvenience of traditional bus services, we're not just offering transportation – we're hoping to improve the students academic journey.<br>With features like advance booking, flexible scheduling, and guaranteed seating, we're making sure that transportation is the least of your worries.</p>
+            <br><br><hr><br><br>
+            <h2>Ready to make your reservation?</h2>
+            <a href="index.html" class="login-button">Proceed to Login</a>
         </div>
-    </section>
-
-    <section class="login-section">
-        <p class="login-text">Ready to make your reservation?</p>
-        <a href="index.html" class="login-button">Proceed to Login</a>
     </section>
 
     <script>
@@ -396,7 +369,7 @@
             });
         }, observerOptions);
 
-        const sections = document.querySelectorAll('.main-content, .system-workflow, .system-explanation, .conclusion-section, .login-section');
+        const sections = document.querySelectorAll('.main-content, .system-workflow, .system-explanation, .conclusion-section');
         sections.forEach(section => observer.observe(section));
     </script>
 </body>

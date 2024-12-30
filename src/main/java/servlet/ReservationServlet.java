@@ -34,7 +34,8 @@ public class ReservationServlet extends HttpServlet {
 
         // Validate data
         if (username == null || userId == null || seatNumber == null || rideId == null) {
-            response.getWriter().write("Error: Missing reservation details.");
+            session.setAttribute("errorMessage", "Error: Missing reservation details.");
+            response.sendRedirect("confirmation.jsp");
             return;
         }
 
@@ -48,38 +49,44 @@ public class ReservationServlet extends HttpServlet {
             // Check if user already has a reservation for this ride
             if (isUserAlreadyReserved(con, userId, rideId)) {
                 con.rollback();
-                response.getWriter().write("You have already reserved a seat for this ride.");
+                session.setAttribute("errorMessage", "You have already reserved a seat for this ride.");
+                response.sendRedirect("confirmation.jsp");
                 return;
             }
 
             // Check if user has a reservation on the same date
             if (hasReservationForRideDate(con, userId, rideId)) {
                 con.rollback();
-                response.getWriter().write("You already have a reservation on this date. You cannot reserve another ride for this date.");
+                session.setAttribute("errorMessage", "You already have a reservation on this date. You cannot reserve another ride for this date.");
+                response.sendRedirect("confirmation.jsp");
                 return;
             }
 
             // Check if user has exceeded the daily reservation limit
             if (hasExceededDailyLimit(con, userId)) {
                 con.rollback();
-                response.getWriter().write("You have reached the maximum limit of " + MAX_DAILY_RESERVATIONS + " reservations for today.");
+                session.setAttribute("errorMessage", "You have reached the maximum limit of " + MAX_DAILY_RESERVATIONS + " reservations for today.");
+                response.sendRedirect("confirmation.jsp");
                 return;
             }
 
             // Check seat availability with row-level locking
             if (isSeatTaken(con, rideId, seatNumber)) {
                 con.rollback();
-                response.getWriter().write("Sorry, this seat has just been taken. Please choose another seat.");
+                session.setAttribute("errorMessage", "Sorry, this seat has just been taken. Please choose another seat.");
+                response.sendRedirect("confirmation.jsp");
                 return;
             }
 
             // Make the reservation
             if (makeReservation(con, userId, rideId, seatNumber)) {
                 con.commit();
+                session.setAttribute("successMessage", "Reservation completed successfully!");
                 response.sendRedirect("confirmation.jsp");
             } else {
                 con.rollback();
-                response.getWriter().write("Error: Could not complete reservation.");
+                session.setAttribute("errorMessage", "Error: Could not complete reservation.");
+                response.sendRedirect("confirmation.jsp");
             }
 
         } catch (SQLException e) {
@@ -91,7 +98,8 @@ public class ReservationServlet extends HttpServlet {
                 ex.printStackTrace();
             }
             e.printStackTrace();
-            response.getWriter().write("Database error: " + e.getMessage());
+            session.setAttribute("errorMessage", "Database error: " + e.getMessage());
+            response.sendRedirect("confirmation.jsp");
         } finally {
             try {
                 if (con != null) {
@@ -127,7 +135,6 @@ public class ReservationServlet extends HttpServlet {
     }
 
     private boolean hasReservationForRideDate(Connection con, Integer userId, Integer rideId) throws SQLException {
-        // Query to join reservations and rides to check if the user already has a reservation for the same ride date
         String query = 
             "SELECT COUNT(*) FROM reservations r " +
             "JOIN rides ri ON r.ride_id = ri.ride_id " +

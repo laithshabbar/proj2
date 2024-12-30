@@ -16,8 +16,8 @@
             </a>
             <ul>
                 <li><a href="#">Home</a></li>
-                    <li><a href="ReservationHistoryServlet">Account</a></li>
-                <li><a href="stationspage1.html">Stations</a></li>
+                <li><a href="ReservationHistoryServlet">History</a></li>
+                <li><a href="AboutPage.html">Stations</a></li>
             </ul>
         </div>
 
@@ -36,7 +36,7 @@
                 Connection connection = null;
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
-                Set<String> reservedSeats = new HashSet<String>(); // Fixed: Explicitly specify the type
+                Set<String> reservedSeats = new HashSet<String>(); 
 
                 try {
                     connection = util.DBConnection.getConnection();

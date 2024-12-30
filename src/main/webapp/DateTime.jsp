@@ -144,8 +144,8 @@
             </a>
             <ul>
                 <li><a href="#">Home</a></li>
-                    <li><a href="ReservationHistoryServlet">Account</a></li>
-                <li><a href="#">Stations</a></li>
+                <li><a href="ReservationHistoryServlet">History</a></li>
+                <li><a href="AboutPage.html">Stations</a></li>
             </ul>
         </div>
         <div class="content">

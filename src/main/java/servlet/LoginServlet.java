@@ -5,8 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,37 +26,50 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("txtPwd");
 
         try (Connection con = DBConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT user_id, username FROM users WHERE username = ? AND password = ?")) {
+             //  check if the username exists
+             PreparedStatement checkUser = con.prepareStatement("SELECT COUNT(*) as count FROM users WHERE username = ?")) {
+            
+            checkUser.setString(1, username);
+            try (ResultSet userCheck = checkUser.executeQuery()) {
+                userCheck.next();
+                if (userCheck.getInt("count") == 0) {
+                    // Account doesn't exist - redirect with error message
+                    String errorMessage = URLEncoder.encode("Account does not exist. Please register first.", StandardCharsets.UTF_8.toString());
+                    response.sendRedirect("index.html?error=" + errorMessage);
+                    return;
+                }
+            }
 
-            ps.setString(1, username);
-            ps.setString(2, password);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    // Login successful
-                    int userId = rs.getInt("user_id"); // Retrieve the user ID from the database
-                    HttpSession session = request.getSession(); // Create a new session
-                    session.setAttribute("username", username); // Store username in session
-                    session.setAttribute("user_id", userId); // Store user ID in session
+            //  the username exists ,check credentials
+            try (PreparedStatement ps = con.prepareStatement("SELECT user_id, username FROM users WHERE username = ? AND password = ?")) {
+                ps.setString(1, username);
+                ps.setString(2, password);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        // Login successful
+                        int userId = rs.getInt("user_id");
+                        HttpSession session = request.getSession();
+                        session.setAttribute("username", username);
+                        session.setAttribute("user_id", userId);
 
-                    // Update the last_login field to the current timestamp
-                    try (PreparedStatement updatePs = con.prepareStatement("UPDATE users SET last_login = NOW() WHERE user_id = ?")) {
-                        updatePs.setInt(1, userId); // Set the user_id to update the correct user
-                        updatePs.executeUpdate(); // Execute the update query
+                        // Update the last_login field
+                        try (PreparedStatement updatePs = con.prepareStatement("UPDATE users SET last_login = NOW() WHERE user_id = ?")) {
+                            updatePs.setInt(1, userId);
+                            updatePs.executeUpdate();
+                        }
+
+                        response.sendRedirect("CityServlet");
+                    } else {
+                        // Password is incorrect - redirect with error message
+                        String errorMessage = URLEncoder.encode("Incorrect password. Please try again.", StandardCharsets.UTF_8.toString());
+                        response.sendRedirect("index.html?error=" + errorMessage);
                     }
-
-                    // Redirect to station page or dashboard
-                    response.sendRedirect("stationpage1.html");
-                } else {
-                    // Login failed
-                    request.setAttribute("errorMessage", "Invalid username or password. Please try again.");
-                    RequestDispatcher rd = request.getRequestDispatcher("login.html");
-                    rd.forward(request, response);
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            response.setContentType("text/html");
-            response.getWriter().println("<h3 style='color:red;'>Database connection error: " + e.getMessage() + "</h3>");
+            // Database error - redirect with error message
+            String errorMessage = URLEncoder.encode("Database connection error: " + e.getMessage(), StandardCharsets.UTF_8.toString());
+            response.sendRedirect("index.html?error=" + errorMessage);
         }
     }
 }

@@ -21,29 +21,10 @@ public class StationChoiceServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("selectedCity", city);
 
-            // Redirect to the city's station page
-            switch (city) {
-                case "Amman":
-                    response.sendRedirect("AmmanStations.html");
-                    break;
-                case "Irbid":
-                    response.sendRedirect("IrbidStations.html");
-                    break;
-                case "Al-Mafraq / Az-Zarqa":
-                    response.sendRedirect("Mafraq_ZarqaStations.html");
-                    break;
-                case "Balqa / Madaba":
-                    response.sendRedirect("Balqa_MadabaSatations.html");
-                    break;
-                case "Al-Karak / Al-Tafilah":
-                    response.sendRedirect("Karak_TafilahStations.html");
-                    break;
-                case "Aqaba / Ma'an":
-                    response.sendRedirect("Aqaba_MaanSations.html");
-                    break;
-                default:
-                    response.sendRedirect("error.html"); // Redirect to an error page for unexpected values
-            }
+          
+                    response.sendRedirect("StationServlet");
+                
+            
         } else {
             response.setContentType("text/html");
             response.getWriter().println("<h3 style='color:red;'>Invalid city selection. Please try again.</h3>");
