@@ -28,6 +28,23 @@ public class CityServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching cities");
         }
     }
+	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	        String city = request.getParameter("city");
+
+	        if (city != null && !city.isEmpty()) {
+	            // Store the selected city in the session
+	            HttpSession session = request.getSession();
+	            session.setAttribute("selectedCity", city);
+
+	          
+	                    response.sendRedirect("StationServlet");
+	                
+	            
+	        } else {
+	            response.setContentType("text/html");
+	            response.getWriter().println("<h3 style='color:red;'>Invalid city selection. Please try again.</h3>");
+	        }
+	    }
 }
 
 

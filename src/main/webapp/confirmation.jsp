@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.text.SimpleDateFormat, java.util.Date" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -166,7 +167,25 @@ span {
         </div>
         <div class="confirmation-container">
             <h1>BOOKING CONFIRMATION</h1>
-            <p><strong>Date:</strong> ${sessionScope.departureDateTime}</p>
+
+            <%
+                // Retrieve the departure date string from session
+                String departureDateStr = (String) session.getAttribute("departureDateTime");
+
+                if (departureDateStr != null) {
+                    // Parse the string into a Date object
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                    Date departureDate = inputFormat.parse(departureDateStr);
+
+                    // Format the Date object into the desired format with AM/PM
+                    SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM dd, yyyy hh:mm a");
+                    String formattedDate = outputFormat.format(departureDate);
+            %>
+            <p><strong>Date:</strong> <%= formattedDate %></p>
+            <% } else { %>
+            <p><strong>Date:</strong> No date available</p>
+            <% } %>
+
             <p><strong>Seat:</strong> ${sessionScope.seatNumber}</p>
             <p><strong>City:</strong> ${sessionScope.selectedCity}</p>
             <p><strong>Station:</strong> ${sessionScope.selectedStation}</p>

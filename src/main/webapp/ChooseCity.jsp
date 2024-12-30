@@ -71,7 +71,7 @@
                 <h1>SELECT YOUR CITY</h1>
                 <p>Choose one of the following cities to go to one of the supported stations.</p>
                 <div class="buttons-container">
-                    <form action="StationChoiceServlet" method="post" class="buttons-grid">
+                    <form action="CityServlet" method="post" class="buttons-grid">
                         <%
                             // Get the cities list from the request attribute
                             @SuppressWarnings("unchecked")

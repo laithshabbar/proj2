@@ -25,7 +25,7 @@
                 </ul>
             </div>
         </div>
-        <form action="StationSelectServlet" method="post">
+        <form action="StationServlet" method="post">
             <div class="custom-select" style="width:200px;">
                 <select name="station" required id="stationSelect">
                     <option value="">Select Station</option>
