@@ -53,6 +53,42 @@
             form.buttons-grid {
                 padding: 5px;
             }
+            @media (max-width: 1249px) {
+            .logo {
+                max-width: 360px;
+            }
+            .content  {
+                margin-top: 25%;
+            }
+        }
+        @media (max-width: 1031px) {
+            .logo {
+                max-width: 500px;
+            }
+            .content  {
+                margin-top: 30%;
+            }
+            .content h1{
+            font-size:50px;
+            }
+            
+        }
+        @media (max-width: 699px) {/*xddddd*/
+            .logo {
+                max-width: 500px;
+                align-content:center;
+            }
+            .content  {
+                margin-top: 50%;
+            }
+            .content h1{
+            font-size:40px;
+            }
+            .content p{
+            font-size:15px;
+            }
+            
+        }
         </style>
     </head>
     <body>
@@ -64,7 +100,7 @@
                 <ul>
                     <li><a href="AboutPage.html">Home</a></li>
                     <li><a href="ReservationHistoryServlet">History</a></li>
-                    <li><a href="#">Stations</a></li>
+                    <li><a href="LogoutServlet">Log out</a></li>
                 </ul>
             </div>          
             <div class="content">

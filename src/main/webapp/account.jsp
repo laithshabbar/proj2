@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="servlet.ReservationHistoryServlet.ReservationHistory" %>
+<%@ page import="util.ReservationHistory" %> <!-- Corrected import -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,29 +12,34 @@
             padding: 0;
             font-family: sans-serif;
         }
-.navbar{
-    width: 85%;
-    margin: auto;
-    padding: 35px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.logo{
-    width: 360px;
-    cursor: pointer;
-}
-.navbar ul li{
-    list-style: none;
-    display: inline-block;
-    margin: 0 20px;
-    position: relative;
-}
-.navbar ul li a{
-    text-decoration: none;
-    color: white;
-    text-transform: uppercase;
-}
+
+        .navbar {
+            width: 85%;
+            margin: auto;
+            padding: 35px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            width: 360px;
+            cursor: pointer;
+        }
+
+        .navbar ul li {
+            list-style: none;
+            display: inline-block;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: white;
+            text-transform: uppercase;
+        }
+
         body {
             background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(background.jpg);
             background-size: cover;
@@ -56,7 +61,7 @@
             margin-bottom: 30px;
             color: white;
         }
-        
+
         .history-table {
             width: 100%;
             border-collapse: collapse;
@@ -169,79 +174,79 @@
 </head>
 <body>
 <div class="banner">
-            <div class="navbar">
-                <a href="https://www.just.edu.jo/Pages/Default.aspx">
-                    <img src="logo.png" class="logo">
-                </a>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                <li><a href="ReservationHistoryServlet">History</a></li>
-                <li><a href="AboutPage.html">Stations</a></li>
-                </ul>
-            </div>
-        </div>
-    <div class="history-container">
-        <h1>YOUR RESERVATION HISTORY</h1>
-         
-        <%
-        @SuppressWarnings("unchecked")
-        List<ReservationHistory> history = (List<ReservationHistory>)request.getAttribute("reservationHistory");
-        if (history == null || history.isEmpty()) {
-        %>
-            <div class="no-reservations">
-                <p>You haven't made any reservations yet.</p>
-            </div>
-        <%
-        } else {
-        %>
-            <table class="history-table">
-                <thead>
-                    <tr>
-                        <th>Location</th>
-                        <th>Seat Number</th>
-                        <th>Departure Time</th>
-                        <th>Reservation Made</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%
-                    for (ReservationHistory reservation : history) {
-                    %>
-                        <tr>
-                            <td class="location-cell">
-                                <%= reservation.getCityName() %>
-                                <div class="station-name"><%= reservation.getStationName() %></div>
-                            </td>
-                            <td><%= reservation.getSeatNumber() %></td>
-                            <td><%= reservation.getFormattedDepartureTime() %></td>
-                            <td><%= reservation.getFormattedReservationTime() %></td>
-                            <td>
-                                <% if (reservation.isUpcoming()) { %>
-                                    <span class="status-badge status-upcoming">Upcoming</span>
-                                <% } else { %>
-                                    <span class="status-badge status-completed">Completed</span>
-                                <% } %>
-                            </td>
-                            <td>
-                                <% if (reservation.isUpcoming()) { %>
-                                    <form action="ReservationHistoryServlet" method="post" id="cancelForm<%= reservation.getReservationId() %>">
-                                        <input type="hidden" name="reservationId" value="<%= reservation.getReservationId() %>">
-                                        <input type="button" class="cancel-btn" value="Cancel" 
-                                               onclick="confirmCancel(document.getElementById('cancelForm<%= reservation.getReservationId() %>'))">
-                                    </form>
-                                <% } %>
-                            </td>
-                        </tr>
-                    <%
-                    }
-                    %>
-                </tbody>
-            </table>
-        <%
-        }
-        %>
+    <div class="navbar">
+        <a href="https://www.just.edu.jo/Pages/Default.aspx">
+            <img src="logo.png" class="logo">
+        </a>
+        <ul>
+            <li><a href="AboutPage.html">Home</a></li>
+            <li><a href="ReservationHistoryServlet">History</a></li>
+            <li><a href="LogoutServlet">Log out</a></li>
+        </ul>
     </div>
+</div>
+<div class="history-container">
+    <h1>YOUR RESERVATION HISTORY</h1>
+
+    <% 
+        @SuppressWarnings("unchecked")
+        List<ReservationHistory> history = (List<ReservationHistory>) request.getAttribute("reservationHistory");
+        if (history == null || history.isEmpty()) {
+    %>
+        <div class="no-reservations">
+            <p>You haven't made any reservations yet.</p>
+        </div>
+    <% 
+        } else {
+    %>
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Location</th>
+                    <th>Seat Number</th>
+                    <th>Departure Time</th>
+                    <th>Reservation Made</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% 
+                    for (ReservationHistory reservation : history) {
+                %>
+                    <tr>
+                        <td class="location-cell">
+                            <%= reservation.getCityName() %>
+                            <div class="station-name"><%= reservation.getStationName() %></div>
+                        </td>
+                        <td><%= reservation.getSeatNumber() %></td>
+                        <td><%= reservation.getFormattedDepartureTime() %></td>
+                        <td><%= reservation.getFormattedReservationTime() %></td>
+                        <td>
+                            <% if (reservation.isUpcoming()) { %>
+                                <span class="status-badge status-upcoming">Upcoming</span>
+                            <% } else { %>
+                                <span class="status-badge status-completed">Completed</span>
+                            <% } %>
+                        </td>
+                        <td>
+                            <% if (reservation.isUpcoming()) { %>
+                                <form action="ReservationHistoryServlet" method="post" id="cancelForm<%= reservation.getReservationId() %>">
+                                    <input type="hidden" name="reservationId" value="<%= reservation.getReservationId() %>">
+                                    <input type="button" class="cancel-btn" value="Cancel" 
+                                           onclick="confirmCancel(document.getElementById('cancelForm<%= reservation.getReservationId() %>'))">
+                                </form>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% 
+                    }
+                %>
+            </tbody>
+        </table>
+    <% 
+        }
+    %>
+</div>
 </body>
 </html>

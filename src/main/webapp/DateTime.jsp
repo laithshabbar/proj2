@@ -133,6 +133,88 @@
             background: rgba(173, 160, 211, 0.3);
             transform: translateY(-2px);
         }
+        @media (max-width: 1024px) {
+        .content h1 {
+            font-size: 2.8rem;
+        }
+
+        .content p {
+            font-size: 1.1rem;
+        }
+
+        .navbar ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar ul li {
+            margin: 15px 25px;
+        }
+
+        .datetime-container {
+            gap: 20px;
+        }
+
+        .input-group {
+            width: 40%;
+        }
+
+        button[type="submit"] {
+            width: 40%;
+        }
+    }
+
+    @media (max-width: 768px) {
+ 
+        .content {
+            top: 55%;
+            transform: translateY(-80%); 
+        }
+
+        .content h1 {
+            font-size: 2rem;
+        }
+
+        .content p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .navbar ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .navbar ul li {
+            margin: 10px 0;
+        }
+
+        .datetime-container {
+            flex-direction: column;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .input-group {
+            width: 90%;
+            padding: 20px;
+        }
+
+        input[type="date"],
+        select,
+        button[type="submit"] {
+            width: 60%;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        button[type="submit"] {
+            font-size: 16px;
+        }
+    }
     </style>
 
 </head>
@@ -143,9 +225,9 @@
                 <img src="logo.png" class="logo">
             </a>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="ReservationHistoryServlet">History</a></li>
-                <li><a href="AboutPage.html">Stations</a></li>
+                    <li><a href="AboutPage.html">Home</a></li>
+                    <li><a href="ReservationHistoryServlet">History</a></li>
+                    <li><a href="LogoutServlet">Log out</a></li>
             </ul>
         </div>
         <div class="content">

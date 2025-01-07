@@ -65,44 +65,6 @@ button {
     transition: background-color 0.3s, color 0.3s;
 }
 
-button:hover {
-    background: #ada0d3;
-    color: white;
-}
-
-button:hover span {
-    width: 100%;
-}
-
-span {
-    background: #ada0d3;
-    height: 100%;
-    width: 0;
-    border-radius: 25px;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-    transition: 0.5s;
-}
-
-.navbar ul li {
-    list-style: none;
-    display: inline-block;
-    margin: 0 20px;
-    position: relative;
-}
-
-.navbar ul li a {
-    text-decoration: none;
-    color: white;
-    text-transform: uppercase;
-}
-
-.logo {
-    width: 360px;
-}
-
 /* Popup styles */
 .popup {
     display: none;
@@ -160,9 +122,9 @@ span {
                 <img src="logo.png" class="logo">
             </a>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="ReservationHistoryServlet">History</a></li>
-                <li><a href="AboutPage.html">Stations</a></li>
+                    <li><a href="AboutPage.html">Home</a></li>
+                    <li><a href="ReservationHistoryServlet">History</a></li>
+                    <li><a href="LogoutServlet">Log out</a></li>
             </ul>
         </div>
         <div class="confirmation-container">

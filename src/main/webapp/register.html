@@ -8,6 +8,13 @@
             color: white;
             opacity: 1;
         }
+        .banner{
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(loginBack.jpg);
+            background-size: cover;
+            background-position: center;
+        }
         .datetime-input {
             border-radius: 15px;
             padding: 10px;
@@ -36,19 +43,124 @@
             margin-top: 5px;
             display: none;
         }
-        @media (max-width: 768px) {
+
+        /* Modal Popup Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #282c34;
+            padding: 20px;
+            border: 2px solid #ada0d3;
+            border-radius: 10px;
+            z-index: 1000;
+            text-align: center;
+            min-width: 300px;
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(-100px); opacity: 0;}
+            to {transform: translateY(0); opacity: 1;}
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            color: white;
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .close-button {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            width: auto;
+        }
+
+        .close-button:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            color: white;
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .modal-footer {
+            text-align: center;
+        }
+
+        .modal-button {
+            background-color: #ada0d3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: auto;
+        }
+
+        .modal-button:hover {
+            background-color: #8b7ab6;
+        }
+
+        @media (max-width: 1572px) {
             .logo {
                 max-width: 300px;
             }
-            
-            .content {
-                grid-template-columns:0.5fr;
-                margin-top: 10em;
+            .content  {
+                margin-top: 30%;
             }
-            .container{
-                margin-top: 20em;
-            }  
+            
+            .button {
+                margin-top: 25%;
+            }
         }
+        @media (max-width: 1031px) {
+            .logo {
+                max-width: 500px;
+            }
+            .content  {
+                margin-top: 40%;
+            }
+            .content h1{
+                font-size:50px;
+            }
+            .button {
+                margin-top: 25%;
+            }
+        } 
+        @media (max-width: 834px) {
+            .logo {
+                max-width: 500px;
+            }
+            .content  {
+                margin-top: 50%;
+            }
+            .content h1{
+                font-size:30px;
+            }
+            .button {
+                margin-top: 25%;
+            }
+        } 
     </style>
 </head>
 <body>
@@ -75,18 +187,16 @@
                         <input type="password" id="password" name="password" class="datetime-input" placeholder="Enter Password" required>
                         <div id="passwordError" class="error"></div>
                     </div>
-                    <!-- New uni_id input, only numeric -->
                     <div class="datetime-wrapper" style="top: 62%; left:30%; border-radius: 20px;width: 40%">
                         <input type="number" id="uni_id" name="uni_id" class="datetime-input" placeholder="Enter University ID" required>
                         <div id="uniIdError" class="error"></div>
                     </div>
                     
-                    <div style="margin-top: 250px;">
+                    <div class="xd" style="margin-top: 350px;">
                         <button type="submit">
                             <span></span>
                             Sign-up
-                        </button>
-                        
+                        </button>                       
                         <button type="reset">
                             <span></span>
                             Reset
@@ -97,7 +207,23 @@
         </div>
     </div>
 
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Registration Error</h3>
+                <button class="close-button">&times;</button>
+            </div>
+            <div class="modal-body" id="modalErrorMessage">
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button">OK</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Form validation
         document.getElementById('registrationForm').addEventListener('submit', function(event) {
             event.preventDefault();
             
@@ -108,8 +234,8 @@
 
             const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             const userRegex = /^[^\s]{1,15}$/;
-            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[^\s]{1,20}$/;
-            const uniIdRegex = /^[0-9]{1,20}$/; 
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[^\s]{6,20}$/;
+            const uniIdRegex = /^(100000|1[0-9]{5}|200000)$/; 
 
             let isValid = true;
 
@@ -134,7 +260,7 @@
             // Validate password
             if (!passwordRegex.test(password)) {
                 document.getElementById('passwordError').style.display = 'block';
-                document.getElementById('passwordError').textContent = 'Password must contain at least one uppercase letter, one lowercase letter, one number, no spaces, and be 1-20 characters long';
+                document.getElementById('passwordError').textContent = 'Password must contain at least one uppercase letter, one lowercase letter, one number, no spaces, and be 6-20 characters long';
                 isValid = false;
             } else {
                 document.getElementById('passwordError').style.display = 'none';
@@ -143,7 +269,7 @@
             // Validate uni_id 
             if (!uniIdRegex.test(uniId)) {
                 document.getElementById('uniIdError').style.display = 'block';
-                document.getElementById('uniIdError').textContent = 'University ID must be numeric and 1-20 digits long';
+                document.getElementById('uniIdError').textContent = 'University ID must be numeric, 6 digits long, and not exceed 200000';
                 isValid = false;
             } else {
                 document.getElementById('uniIdError').style.display = 'none';
@@ -153,6 +279,48 @@
                 this.submit();
             }
         });
+
+        // Modal Functionality
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        window.onload = function() {
+            var modal = document.getElementById('errorModal');
+            var closeBtn = document.querySelector('.close-button');
+            var okButton = document.querySelector('.modal-button');
+            var modalErrorMessage = document.getElementById('modalErrorMessage');
+            
+            // Get error message from URL parameter
+            var errorMessage = getUrlParameter('error');
+            
+            if (errorMessage && errorMessage.trim() !== '') {
+                modalErrorMessage.textContent = errorMessage;
+                modal.style.display = 'block';
+                // Clear the URL parameter
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            // Close modal when clicking the close button
+            closeBtn.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            // Close modal when clicking the OK button
+            okButton.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            // Close modal when clicking outside of it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        }
     </script>
 </body>
 </html>

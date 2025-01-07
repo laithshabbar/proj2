@@ -8,6 +8,71 @@
     <title>Seat Selection Page</title>
     <link rel="stylesheet" href="seatstyle.css">
 </head>
+<style>
+@media (max-width: 1249px) {
+            .logo {
+                max-width: 360px;
+            }
+            .content  {
+                margin-top: 25%;
+            }
+        }
+        @media (max-width: 1031px) {
+            .logo {
+                max-width: 500px;
+            }
+            .content  {
+                margin-top: 30%;
+            }
+            .content h1{
+            font-size:50px;
+            }
+            
+        }
+        @media (max-width: 800px) {
+            .logo {
+                max-width: 500px;
+                align-content:center;
+            }
+            .content  {
+                margin-top: 40%;
+            }
+            .content h1{
+            font-size:40px;
+            }
+            .content p{
+            font-size:15px;
+            }
+            
+        }
+        @media (max-width: 699px) {/*xddddd*/
+            .logo {
+                max-width: 500px;
+                align-content:center;
+            }
+            .content  {
+                margin-top: 50%;
+            }
+            .content h1{
+            font-size:40px;
+            }
+            .content p{
+            font-size:15px;
+            }
+            .seat-column {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+    
+            .seat {
+                width: 50px;
+                height: 35px;
+                font-size: 12px;
+            }
+            
+        }
+        
+</style>
 <body>
     <div class="banner">
         <div class="navbar">
@@ -15,9 +80,9 @@
                 <img src="logo.png" alt="Logo" class="logo">
             </a>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="ReservationHistoryServlet">History</a></li>
-                <li><a href="AboutPage.html">Stations</a></li>
+                    <li><a href="AboutPage.html">Home</a></li>
+                    <li><a href="ReservationHistoryServlet">History</a></li>
+                    <li><a href="LogoutServlet">Log out</a></li>
             </ul>
         </div>
 
