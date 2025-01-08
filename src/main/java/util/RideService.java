@@ -75,7 +75,7 @@ public class RideService {
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, driverId);
-            preparedStatement.setString(2, rideDate);  // Use the extracted date
+            preparedStatement.setString(2, rideDate);  
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -121,7 +121,7 @@ public class RideService {
         }
     }
     public static int getRideIdByCityStationDateTime(String city, String station, String departureDateTime) {
-        int rideId = -1; // Default value indicating no ride found
+        int rideId = -1; 
 
         String query = "SELECT r.ride_id "
                      + "FROM rides r "

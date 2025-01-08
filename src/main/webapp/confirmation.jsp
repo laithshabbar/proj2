@@ -139,7 +139,7 @@ button {
                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                     Date departureDate = inputFormat.parse(departureDateStr);
 
-                    // Format the Date object into the desired format with AM/PM
+                    // Format the Date object into AM/PM
                     SimpleDateFormat outputFormat = new SimpleDateFormat("MMMM dd, yyyy hh:mm a");
                     String formattedDate = outputFormat.format(departureDate);
             %>
@@ -189,7 +189,7 @@ button {
         document.getElementById(popupId).style.display = 'none';
     }
 
-    // Check for messages in session and show appropriate popup or redirect
+   
     <% if (session.getAttribute("errorMessage") != null) { %>
         showPopup('errorPopup', '<%= session.getAttribute("errorMessage") %>');
         <% session.removeAttribute("errorMessage"); %>

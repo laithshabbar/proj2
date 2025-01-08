@@ -29,7 +29,7 @@ public class StationServlet extends HttpServlet {
         }
 
         try {
-            // Get stations for the city using the StationQuery class
+            // Get stations for the city 
             ArrayList<HashMap<String, String>> stations = StationDTO.getStationsForCity(cityName);
             
             request.setAttribute("cityName", cityName);

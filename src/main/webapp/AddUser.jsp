@@ -31,6 +31,19 @@
             justify-content: space-between;
         }
 
+        .navbar ul li{
+            list-style: none;
+            display: inline-block;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .navbar ul li a{
+            text-decoration: none;
+            color: white;
+            text-transform: uppercase;
+        }
+
         .logo {
             width: 360px;
             cursor: pointer;
@@ -138,15 +151,16 @@
             color: white;
         }
 
-        /* Remove double borders between cells */
+        
         th:not(:last-child), td:not(:last-child) {
             border-right: none;
         }
+
         tr:not(:last-child) td, tr:not(:last-child) th {
             border-bottom: none;
         }
 
-        /* Round the corners of the first and last cells */
+       
         th:first-child {
             border-top-left-radius: 15px;
         }
@@ -188,11 +202,15 @@
             <a href="https://www.just.edu.jo/Pages/Default.aspx">
                 <img src="logo.png" class="logo">
             </a>
+            <ul>
+                <li><a href="LogoutServlet">Log out</a></li>
+            </ul>
         </div>
         
         <div class="content">
             <h1>ADMIN MANAGEMENT PAGE</h1>
             <br>
+            
             <!-- Add Driver Section -->
             <div class="section">
                 <h2>Add a Driver</h2>
@@ -234,6 +252,43 @@
                         
                         if (drivers != null) {
                             for (util.User user : drivers) {
+                        %>
+                        <tr>
+                            <td><%= user.getUsername() %></td>
+                            <td><%= user.getEmail() %></td>
+                            <td>
+                                <form action="AddDriverServlet" method="post" style="display:inline;">
+                                    <input type="hidden" name="user_id" value="<%= user.getUser_id() %>">
+                                    <button type="submit">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% 
+                            }
+                        }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- All Users Section -->
+            <div class="section">
+                <h2>All Users </h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% 
+                        @SuppressWarnings("unchecked")
+                        List<util.User> users = (List<util.User>) request.getAttribute("users");
+                        
+                        if (users != null) {
+                            for (util.User user : users) {
                         %>
                         <tr>
                             <td><%= user.getUsername() %></td>

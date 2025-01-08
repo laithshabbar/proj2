@@ -82,10 +82,10 @@
                 margin-top: 50%;
             }
             .content h1{
-            font-size:40px;
+            font-size:25px;
             }
             .content p{
-            font-size:15px;
+            font-size:10px;
             }
             
         }
@@ -109,7 +109,7 @@
                 <div class="buttons-container">
                     <form action="CityServlet" method="post" class="buttons-grid">
                         <%
-                            // Get the cities list from the request attribute
+                            
                             @SuppressWarnings("unchecked")
                             List<String> cities = (List<String>) request.getAttribute("cities"); 
                             if (cities != null) {

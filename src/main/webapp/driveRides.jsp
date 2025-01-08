@@ -18,19 +18,30 @@
             background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(AdminBackGround.jpg);
             background-size: cover;
             background-position: center;
-}
-.navbar{
-            width: 85%;
-            margin: auto;
-            padding: 35px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-}
-.logo{
+        }
+        .navbar{
+                width: 85%;
+                margin: auto;
+                padding: 35px 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .navbar ul li{
+                list-style: none;
+                display: inline-block;
+                margin: 0 20px;
+                position: relative;
+            }
+            .navbar ul li a{
+                text-decoration: none;
+                color: white;
+                text-transform: uppercase;
+            }
+        .logo{
             width: 360px;
             cursor: pointer;
-}
+        }
         body {
             background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url(AdminBackGround.jpg);
             background-attachment: fixed;  /* Add this line */
@@ -145,6 +156,9 @@
             <a href="https://www.just.edu.jo/Pages/Default.aspx">
                 <img src="logo.png" class="logo">
             </a>
+            <ul>
+                    <li><a href="LogoutServlet">Log out</a></li>
+            </ul>
         </div>
     <div class="content">
         <h1>UPCOMING RIDES</h1>

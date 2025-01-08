@@ -23,15 +23,25 @@
             background-position: center;
             padding: 20px 0;
         }
-
-        .navbar {
-            width: 85%;
-            margin: auto;
-            padding: 35px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+        .navbar{
+                width: 85%;
+                margin: auto;
+                padding: 35px 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .navbar ul li{
+                list-style: none;
+                display: inline-block;
+                margin: 0 20px;
+                position: relative;
+            }
+            .navbar ul li a{
+                text-decoration: none;
+                color: white;
+                text-transform: uppercase;
+            }
 
         .logo {
             width: 360px;
@@ -140,23 +150,41 @@
             margin-bottom: 30px;
         }
 
-        .city-name {
-            font-size: 24px;
-            font-weight: bold;
-            color:white;
+        .city-header, .station-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
         }
 
+        .city-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .station-name {
+            font-size: 18px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .delete-form {
+            margin-left: auto; 
+        }
+        .delete-form button{
+            width:300px; 
+        }
+        
         .station {
             margin-left: 30px;
             margin-bottom: 10px;
-            font-size: 18px;
-            color: white;
         }
 
         .maps-link {
             color: #ada0d3;
-            margin-left: 10px;
             text-decoration: none;
         }
 
@@ -167,11 +195,13 @@
         @media (max-width: 1250px) {
             .content h1 { font-size: 30px; }
             input[type="text"], select { width: 250px; }
+            .delete-form button{width:150px; }
         }
 
         @media (max-width: 768px) {
             .logo { width: 280px; }
             .content h1 { font-size: 24px; }
+            .delete-form button{width:100px; }
             input[type="text"], select { width: 200px; }
             .section h2 { font-size: 24px; }
         }
@@ -183,6 +213,9 @@
             <a href="https://www.just.edu.jo/Pages/Default.aspx">
                 <img src="logo.png" class="logo">
             </a>
+            <ul>
+                    <li><a href="LogoutServlet">Log out</a></li>
+            </ul>
         </div>
         
         <div class="content">
@@ -254,10 +287,12 @@
                 <hr width="100%;" color="#644ea7" size="2">
                 <br>
                     <div class="city">
-                        <div class="city-name">
-                            <%=city.getName()%>
+                        <div class="city-header">
+                            <div class="city-name">
+                                <%=city.getName()%>
+                            </div>
                             <!-- Delete City Button -->
-                            <form action="" method="post" style="display:inline;">
+                            <form action="" method="post" class="delete-form">
                                 <input type="hidden" name="action" value="deleteCity">
                                 <input type="hidden" name="cityId" value="<%= city.getId() %>">
                                 <button type="submit">Delete City</button>
@@ -272,20 +307,24 @@
                             for(StationDTO station : city.getStations()) {
                             %>
                                 <div class="station">
-                                    <%=station.getName()%>
-                                    <%
-                                    if(station.getMapsLink() != null && !station.getMapsLink().isEmpty()) {
-                                    %>
-                                        <a href="<%=station.getMapsLink()%>" target="_blank" class="maps-link">(View on Maps)</a>
-                                    <%
-                                    }
-                                    %>
-                                    <!-- Delete Station Button -->
-                                    <form action="" method="post" style="display:inline;">
-                                        <input type="hidden" name="action" value="deleteStation">
-                                        <input type="hidden" name="stationId" value="<%= station.getId() %>">
-                                        <button type="submit">Delete Station</button>
-                                    </form>
+                                    <div class="station-row">
+                                        <div class="station-name">
+                                            <%=station.getName()%>
+                                            <%
+                                            if(station.getMapsLink() != null && !station.getMapsLink().isEmpty()) {
+                                            %>
+                                                <a href="<%=station.getMapsLink()%>" target="_blank" class="maps-link">(View on Maps)</a>
+                                            <%
+                                            }
+                                            %>
+                                        </div>
+                                        <!-- Delete Station Button -->
+                                        <form action="" method="post" class="delete-form">
+                                            <input type="hidden" name="action" value="deleteStation">
+                                            <input type="hidden" name="stationId" value="<%= station.getId() %>">
+                                            <button type="submit">Delete Station</button>
+                                        </form>
+                                    </div>
                                 </div>
                             <%
                             }

@@ -31,7 +31,7 @@ public class FetchAvailableTimesServlet extends HttpServlet {
         String stationName = request.getParameter("station");
 
         try {
-            // Fetch available times for the given parameters
+            // Fetch available times 
             List<String> availableTimes = availableTimesService.getAvailableTimes(cityName, stationName, selectedDate);
 
             out.println("<option value=''>Select Time</option>");

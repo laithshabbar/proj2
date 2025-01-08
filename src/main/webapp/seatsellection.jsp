@@ -54,10 +54,10 @@
                 margin-top: 50%;
             }
             .content h1{
-            font-size:40px;
+            font-size:30px;
             }
             .content p{
-            font-size:15px;
+            font-size:10px;
             }
             .seat-column {
                 grid-template-columns: repeat(4, 1fr);
@@ -131,7 +131,7 @@
                     <div class="top-seats">
                         <div class="seat-column">
                             <% 
-                                // Generate A and B row seats for top section
+                              
                                 String[] topSeats = {"A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8",
                                                    "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8"};
                                 for (String seat : topSeats) {
@@ -146,7 +146,7 @@
                     <div class="bottom-seats">
                         <div class="seat-column">
                             <% 
-                                // Generate C and D row seats for bottom section
+                             
                                 String[] bottomSeats = {"C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8",
                                                       "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"};
                                 for (String seat : bottomSeats) {

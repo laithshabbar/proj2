@@ -11,6 +11,25 @@
                 background-size: cover;
                 background-position: center;
             }
+            .navbar{
+                width: 85%;
+                margin: auto;
+                padding: 35px 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .navbar ul li{
+                list-style: none;
+                display: inline-block;
+                margin: 0 20px;
+                position: relative;
+            }
+            .navbar ul li a{
+                text-decoration: none;
+                color: white;
+                text-transform: uppercase;
+            }
             .buttons-container {
                 max-height: 400px;
                 overflow-y: auto;
@@ -101,16 +120,19 @@
                 <a href="https://www.just.edu.jo/Pages/Default.aspx">
                     <img src="logo.png" class="logo">
                 </a>
+                <ul>
+                    <li><a href="LogoutServlet">Log out</a></li>
+                </ul>
             </div>          
             <div class="content">
                 <h1>CHOOSE ADMIN ROLE</h1>
-                <p>If you want to add a new station click on ADD STATIONS, if you want to add a new driver click on ADD DRIVERS.</p>
+                <p>If you want to add a new station click on MANAGE STATIONS, if you want to add a driver or delete a user click on MANAGE ACCOUNTS.</p>
                 <div class="buttons-container">
                  <a href="CityStationServlet">
-                    <button >ADD STATIONS</button>
+                    <button >Manage Stations</button>
                     </a>
                     <a href="AddDriverServlet">
-                    <button >ADD DRIVERS</button>
+                    <button >Manage Accounts</button>
                     </a>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class ReservationDAO {
 
-    private static final int MAX_DAILY_RESERVATIONS = 6; // Limit for daily reservations
+    private static final int MAX_DAILY_RESERVATIONS = 6; 
 
     public boolean isSeatTaken(Connection con, Integer rideId, String seatNumber) throws SQLException {
         try (PreparedStatement ps = con.prepareStatement(

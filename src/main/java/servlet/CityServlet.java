@@ -18,10 +18,10 @@ public class CityServlet extends HttpServlet {
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            List<String> cities = DBConnection.getCities();  // Retrieve cities from DB
-            request.setAttribute("cities", cities);  // Set the cities attribute in the request
+            List<String> cities = DBConnection.getCities(); 
+            request.setAttribute("cities", cities);  
 
-            // Forward the request to the JSP page
+           
             request.getRequestDispatcher("/ChooseCity.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();

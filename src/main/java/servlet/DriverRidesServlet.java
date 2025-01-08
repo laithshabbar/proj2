@@ -44,7 +44,7 @@ public class DriverRidesServlet extends HttpServlet {
             request.getRequestDispatcher("driveRides.jsp").forward(request, response);
 
         } catch (Exception e) {
-            // Handle errors gracefully and provide an error message
+           
             System.err.println("Error fetching driver rides: " + e.getMessage());
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching rides: " + e.getMessage());

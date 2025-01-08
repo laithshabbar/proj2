@@ -25,7 +25,7 @@ public class ReservationServlet extends HttpServlet {
         String seatNumber = (String) session.getAttribute("seatNumber");
         Integer rideId = (Integer) session.getAttribute("rideId");
 
-        // Log session values for debugging
+       
         System.out.println("Username: " + username);
         System.out.println("User ID: " + userId);
         System.out.println("Seat Number: " + seatNumber);

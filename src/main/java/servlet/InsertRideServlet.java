@@ -72,7 +72,7 @@ public class InsertRideServlet extends HttpServlet {
             return;
         }
 
-        // Extract the date part of the departureTime (assuming it's in a format like "yyyy-MM-dd HH:mm:ss")
+        // Extract the date part of the departureTime
         String rideDate = departureTime.split(" ")[0];
 
         RideService rideService = new RideService(); // Ensure the service is initialized

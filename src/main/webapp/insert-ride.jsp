@@ -18,6 +18,25 @@
     background-size: cover;
     background-position: center;
             }
+            .navbar{
+                width: 85%;
+                margin: auto;
+                padding: 35px 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .navbar ul li{
+                list-style: none;
+                display: inline-block;
+                margin: 0 20px;
+                position: relative;
+            }
+            .navbar ul li a{
+                text-decoration: none;
+                color: white;
+                text-transform: uppercase;
+            }
     .flatpickr-calendar.open {
     position: fixed !important;
     top: 50% !important;
@@ -31,7 +50,7 @@
     display: none !important;
 }
 
-/* Add a semi-transparent overlay */
+/* semi-transparent overlay */
 .flatpickr-calendar.open:before {
     content: '';
     position: fixed;
@@ -233,7 +252,7 @@
                 margin-top: 50%;
             }
             .content h1{
-            font-size:45px;
+            font-size:30px;
             }
             .button {
                 margin-top: 25%;
@@ -301,6 +320,9 @@
             <a href="https://www.just.edu.jo/Pages/Default.aspx">
                 <img src="logo.png" class="logo">
             </a>
+            <ul>
+                    <li><a href="LogoutServlet">Log out</a></li>
+                   </ul>
         </div>
         <div class="content">
             <h1>INSERT A NEW RIDE</h1>

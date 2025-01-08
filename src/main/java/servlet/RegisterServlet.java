@@ -52,6 +52,7 @@ public class RegisterServlet extends HttpServlet {
                 return;
             }
 
+            // Hash the password before registering the user
             boolean isRegistered = userService.registerUser(username, password, email, uniId);
             
             if (isRegistered) {

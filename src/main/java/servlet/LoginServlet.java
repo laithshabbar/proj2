@@ -3,14 +3,12 @@ package servlet;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import util.UserService;
 
 @WebServlet("/LoginServlet")
@@ -21,7 +19,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        userService = new UserService(); // Initialize the service class
+        userService = new UserService(); 
     }
 
     @Override
@@ -45,7 +43,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("username", username);
             session.setAttribute("user_id", userId);
 
-            // Fetch the user's role and redirect accordingly
+            // Fetch the user's role and redirect
             String role = userService.getUserRole(username);
             if ("driver".equals(role)) {
                 response.sendRedirect("ChooseRole.jsp");
@@ -56,7 +54,7 @@ public class LoginServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            // Log exception (could be expanded to logging systems) and handle error
+            //handle error
             String errorMessage = URLEncoder.encode("An error occurred: " + e.getMessage(), StandardCharsets.UTF_8.toString());
             response.sendRedirect("index.html?error=" + errorMessage);
         }

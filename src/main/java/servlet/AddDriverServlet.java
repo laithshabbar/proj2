@@ -21,18 +21,19 @@ public class AddDriverServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Fetch all users with 'driver' role
+        // Fetch all users with 'driver' role and 'user' role
         List<User> drivers = UserDAO.getDrivers();
+        List<User> users = UserDAO.getUsers();  
 
-        // Set the list as a request attribute to display in JSP
+        // Set both lists as request attributes
         request.setAttribute("drivers", drivers);
+        request.setAttribute("users", users); 
         request.getRequestDispatcher("AddUser.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Check if the request is to add a new user or remove an existing user
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");

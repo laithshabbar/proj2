@@ -5,14 +5,14 @@ public class User {
     private String username;
     private String email;
 
-    // Constructor
+    
     public User(int user_id, String username, String email) {
         this.user_id = user_id;
         this.username = username;
         this.email = email;
     }
 
-    // Getters and Setters
+  
     public int getUser_id() {
         return user_id;
     }
